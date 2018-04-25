@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar_home_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/common_toolbar_content"/>
+    </android.support.v7.widget.Toolbar>
+    <ImageSwitcher
+        android:id="@+id/is_home_page"
+        android:layout_below="@id/tool_bar_home_page"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+    </ImageSwitcher>
+
+    <View
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@id/is_home_page"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_home_page"
+        android:layout_below="@id/is_home_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_home_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
