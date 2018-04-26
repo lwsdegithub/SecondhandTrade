@@ -38,3 +38,12 @@ dependencies {
     //FragmentTabhostUtils
     compile 'com.github.open-android:FragmentTabhostUtils:0.5.0'
 }
+
+// 添加插件
+apply plugin: 'com.mob.sdk'
+// 在MobSDK的扩展中注册SMSSDK的相关信息
+MobSDK {
+    appKey "25742437de2c0"
+    appSecret "40b6e883e7760620d1f37caed445ecb7"
+    SMSSDK {}
+}

@@ -57,7 +57,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //解除绑定
+        //解除ButterKnife绑定
         unbinder.unbind();
     }
 
