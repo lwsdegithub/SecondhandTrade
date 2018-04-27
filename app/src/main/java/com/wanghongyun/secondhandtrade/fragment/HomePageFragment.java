@@ -8,9 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -84,7 +82,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         recyclerView.setLayoutManager(linearLayoutManager);
         //设置分割线
         DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.recycler_division));
+        dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.item_recycler_division));
         recyclerView.addItemDecoration(dividerItemDecoration);
         //设置初始数据
         for (int i=0;i<12;i++){
