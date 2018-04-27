@@ -20,10 +20,12 @@
         android:layout_height="match_parent">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <RelativeLayout
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants">
                 <com.youth.banner.Banner
                     android:id="@+id/banner_image_flipper"
                     android:layout_width="match_parent"
@@ -31,13 +33,14 @@
                     app:delay_time="4000">
                 </com.youth.banner.Banner>
                 <android.support.v7.widget.RecyclerView
+                    android:nestedScrollingEnabled="false"
                     android:id="@+id/rv_home_page"
-                    android:layout_below="@id/banner_image_flipper"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 </android.support.v7.widget.RecyclerView>
-            </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton

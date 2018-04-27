@@ -12,6 +12,8 @@ public class GoodsBean {
     private String goodsCollectionCount;
     private String goodsCommentCount;
 
+    public GoodsBean(){}
+
     public GoodsBean(int ID, String goodsName, String goodsDescriptions, String goodsImageUrl, String goodsCollectionCount, String goodsCommentCount) {
         this.ID = ID;
         this.goodsName = goodsName;

@@ -41,11 +41,14 @@ public class GoodsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         GoodsBean goodsBean=goodsBeanList.get(position);
         mViewHolder.tvGoodsName.setText(goodsBean.getGoodsName());
         mViewHolder.tvGoodsDescription.setText(goodsBean.getGoodsDescriptions());
-        //通过Glide设置加载image
-        Glide.with(context).load(goodsBean.getGoodsImageUrl()).into(mViewHolder.ivGoodsImage);
+        //如果没有图片，设置图片不可见，如果有，通过Glide设置加载image
+        if (goodsBean.getGoodsImageUrl().isEmpty()){
+            mViewHolder.ivGoodsImage.setVisibility(View.GONE);
+        }else {
+            Glide.with(context).load(goodsBean.getGoodsImageUrl()).into(mViewHolder.ivGoodsImage);
+        }
         mViewHolder.tvGoodsCollectionCount.setText(goodsBean.getGoodsCollectionCount());
         mViewHolder.tvGoodsCommentCount.setText(goodsBean.getGoodsCommentCount());
-
     }
 
     @Override
