@@ -2,15 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginLeft="15dp"
     xmlns:tools="http://schemas.android.com/tools">
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true" />
-
     <TextView
         android:id="@+id/tv_left_title"
         android:layout_width="wrap_content"
@@ -26,10 +23,4 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:textSize="20sp"/>
-
-    <View
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorBlack"
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"/>
 </RelativeLayout>
