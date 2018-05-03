@@ -10,5 +10,5 @@
         android:id="@+id/main_tab_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:tab_textViewSelColor="@color/colorTabChildSel"/>
+        app:tab_textViewSelColor="@color/colorMain"/>
 </LinearLayout>

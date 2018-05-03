@@ -9,7 +9,7 @@
         android:id="@+id/tool_bar_home_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTabChildSel">
+        android:background="@color/colorMain">
 
         <include layout="@layout/common_toolbar_content" />
     </android.support.v7.widget.Toolbar>
@@ -52,5 +52,5 @@
         android:layout_marginBottom="40dp"
         android:layout_marginRight="20dp"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/colorTabChildSel" />
+        app:backgroundTint="@color/colorMain" />
 </RelativeLayout>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar_message"
-        android:background="@color/colorTabChildSel"
+        android:background="@color/colorMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <include layout="@layout/common_toolbar_content"/>
