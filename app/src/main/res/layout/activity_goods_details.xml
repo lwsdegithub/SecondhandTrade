@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_good_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/goods_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="22sp"
+                    android:text="二手出售"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_goods_details_goods_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_below="@id/tv_goods_details_goods_name"
+                    android:background="#a39e9e"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"/>
+                <RelativeLayout
+                    android:layout_below="@id/tv_goods_details_goods_name"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/user_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_user_head_image"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:layout_toRightOf="@id/civ_user_head_image"
+                        android:id="@+id/tv_goods_details_user_name"
+                        android:text="头号玩家"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <Button
+                        android:id="@+id/btn_goods_details_send_msg"
+                        android:layout_alignParentRight="true"
+                        android:text="私聊"
+                        android:textSize="15sp"
+                        android:background="@drawable/bg_common_btn"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <View
+                    android:layout_below="@id/user_details"
+                    android:background="@color/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"/>
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/user_details"
+                    android:id="@+id/article_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

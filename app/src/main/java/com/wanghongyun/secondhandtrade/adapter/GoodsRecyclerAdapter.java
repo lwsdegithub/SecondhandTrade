@@ -1,7 +1,6 @@
 package com.wanghongyun.secondhandtrade.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ public class GoodsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Context context;
     private List<GoodsBean> goodsBeanList;
     private mViewHolder mViewHolder;
-
+    private OnItemClickListener onItemClickListener;
     public GoodsRecyclerAdapter(Context context, List<GoodsBean> goodsBeanList) {
         this.context = context;
         this.goodsBeanList = goodsBeanList;
@@ -37,7 +36,7 @@ public class GoodsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         GoodsBean goodsBean=goodsBeanList.get(position);
         mViewHolder.tvGoodsName.setText(goodsBean.getGoodsName());
         mViewHolder.tvGoodsDescription.setText(goodsBean.getGoodsDescriptions());
@@ -49,6 +48,14 @@ public class GoodsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
         mViewHolder.tvGoodsCollectionCount.setText(goodsBean.getGoodsCollectionCount());
         mViewHolder.tvGoodsCommentCount.setText(goodsBean.getGoodsCommentCount());
+        if (onItemClickListener!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.OnItemClick(position);
+                }
+            });
+        }
     }
 
     @Override
@@ -71,5 +78,13 @@ public class GoodsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvGoodsCollectionCount=itemView.findViewById(R.id.tv_goods_collection_count);
             tvGoodsCommentCount=itemView.findViewById(R.id.tv_goods_comment_count);
         }
+    }
+
+    //自定义RecyclerView的item点击接口
+    public interface OnItemClickListener{
+        void OnItemClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener=onItemClickListener;
     }
 }

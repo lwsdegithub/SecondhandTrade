@@ -1,4 +1,4 @@
-package com.wanghongyun.secondhandtrade.util;
+package com.wanghongyun.secondhandtrade.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,5 +1,6 @@
 package com.wanghongyun.secondhandtrade.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,10 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wanghongyun.secondhandtrade.R;
+import com.wanghongyun.secondhandtrade.activity.GoodDetailsActivity;
 import com.wanghongyun.secondhandtrade.adapter.GoodsRecyclerAdapter;
 import com.wanghongyun.secondhandtrade.base.BaseFragment;
 import com.wanghongyun.secondhandtrade.bean.GoodsBean;
-import com.wanghongyun.secondhandtrade.util.ImageFlipperLoader;
+import com.wanghongyun.secondhandtrade.utils.ImageFlipperLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -35,7 +37,7 @@ import butterknife.Unbinder;
  * Created by 李维升 on 2018/4/25.
  */
 
-public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OnBannerListener{
+public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OnBannerListener,GoodsRecyclerAdapter.OnItemClickListener{
     private View mainView;
     private Unbinder unbinder;
     private ArrayList<String> imageLists=new ArrayList<>();
@@ -47,7 +49,6 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     @BindView(R.id.srl_home_page) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rv_home_page) RecyclerView recyclerView;
     @BindView(R.id.banner_image_flipper) Banner bannerImageFlipper;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,6 +97,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
             goodsBeans.add(goodsBean);
         }
         goodsRecyclerAdapter=new GoodsRecyclerAdapter(getActivity(),goodsBeans);
+        goodsRecyclerAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(goodsRecyclerAdapter);
     }
 
@@ -112,7 +114,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         imageLists.add("http://e.hiphotos.baidu.com/image/pic/item/5d6034a85edf8db1effe3ec40a23dd54574e74b9.jpg");
         imageLists.add("http://a.hiphotos.baidu.com/image/pic/item/d439b6003af33a8709c74f2bc55c10385343b55d.jpg");
         imageLists.add("http://e.hiphotos.baidu.com/image/pic/item/cb8065380cd7912333d46579af345982b2b78083.jpg");
-        swipeRefreshLayout.setRefreshing(false);
+
         bannerImageFlipper.setImages(imageLists);
         bannerImageFlipper.start();
         //帖子数据
@@ -129,6 +131,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         }
         goodsRecyclerAdapter.notifyDataSetChanged();
 
+        swipeRefreshLayout.setRefreshing(false);
     }
     //在这里进行图片轮播组件点击跳转操作
     @Override
@@ -141,5 +144,10 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         super.onDestroyView();
         //解除ButterKnife绑定
         unbinder.unbind();
+    }
+    //recyclerView的Item点击事件
+    @Override
+    public void OnItemClick(int position) {
+        startActivity(new Intent(getActivity(),GoodDetailsActivity.class));
     }
 }
