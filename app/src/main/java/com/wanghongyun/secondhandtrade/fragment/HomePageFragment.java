@@ -3,6 +3,7 @@ package com.wanghongyun.secondhandtrade.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -49,6 +51,8 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     @BindView(R.id.srl_home_page) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rv_home_page) RecyclerView recyclerView;
     @BindView(R.id.banner_image_flipper) Banner bannerImageFlipper;
+    @BindView(R.id.fab_home_page)
+    FloatingActionButton floatingActionButton;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -149,5 +153,9 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void OnItemClick(int position) {
         startActivity(new Intent(getActivity(),GoodDetailsActivity.class));
+    }
+    @OnClick({R.id.fab_home_page})
+    public void onClick(View view){
+        Toast.makeText(getActivity(), "点击了fab", Toast.LENGTH_SHORT).show();
     }
 }
