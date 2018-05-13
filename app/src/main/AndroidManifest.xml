@@ -19,11 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".base.BaseActivity"/>
-        <activity android:name=".activity.GoodDetailsActivity" android:theme="@style/Theme.AppCompat.Light"/>
+        <activity android:name=".activity.GoodDetailsActivity" android:theme="@style/Theme.Design.Light"/>
+        <activity android:name=".activity.AddNewGoodsActivity" android:theme="@style/Theme.Design.Light" />
     </application>
     <!-- if you want to load images from the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- if you want to load images from a file OR from the internet -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 </manifest>

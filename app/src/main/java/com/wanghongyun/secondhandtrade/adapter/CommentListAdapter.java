@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wanghongyun.secondhandtrade.R;
-import com.wanghongyun.secondhandtrade.bean.CommentBean;
+import com.wanghongyun.secondhandtrade.bean.Comment;
+import com.wanghongyun.secondhandtrade.constant.NetConstant;
 
 import java.util.List;
 
@@ -20,21 +21,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentListAdapter extends BaseAdapter {
     private Context context;
-    private List<CommentBean> commentBeans;
+    private List<Comment> commentList;
 
-    public CommentListAdapter(Context context, List<CommentBean> commentBeans) {
+    public CommentListAdapter(Context context, List<Comment> commentBeans) {
         this.context = context;
-        this.commentBeans = commentBeans;
+        this.commentList = commentBeans;
     }
 
     @Override
     public int getCount() {
-        return commentBeans.size();
+        return commentList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return commentBeans.get(i);
+        return commentList.get(i);
     }
 
     @Override
@@ -44,16 +45,17 @@ public class CommentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        CommentBean commentBean=commentBeans.get(i);
+        Comment commentBean=commentList.get(i);
         view=View.inflate(context, R.layout.item_list_comment,viewGroup);
         CircleImageView headImage=view.findViewById(R.id.civ_item_comment_user_head_image);
         TextView userName=view.findViewById(R.id.tv_item_comment_user_name);
         TextView content=view.findViewById(R.id.tv_item_comment_content);
         TextView time=view.findViewById(R.id.tv_item_comment_time);
-        Glide.with(context).load(commentBean.getUserID()).into(headImage);
-        userName.setText(commentBean.getUserID());
-        content.setText(commentBean.getCommentContent());
-        time.setText(commentBean.getSommentTime());
+        //Glide加载头像
+        Glide.with(context).load(NetConstant.BaseHeadIconsUrl+headImage).into(headImage);
+        userName.setText(commentBean.getUser_id());
+        content.setText(commentBean.getComment_content());
+        time.setText(commentBean.getComment_time());
         return view;
     }
 }

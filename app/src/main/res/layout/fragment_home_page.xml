@@ -33,12 +33,14 @@
                     android:layout_height="150dp"
                     app:delay_time="4000">
                 </com.youth.banner.Banner>
-                <android.support.v7.widget.RecyclerView
+                <com.wanghongyun.secondhandtrade.widget.MyListView
                     android:nestedScrollingEnabled="false"
-                    android:id="@+id/rv_home_page"
+                    android:id="@+id/lv_home_page"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </android.support.v7.widget.RecyclerView>
+                </com.wanghongyun.secondhandtrade.widget.MyListView>
             </LinearLayout>
         </ScrollView>
 

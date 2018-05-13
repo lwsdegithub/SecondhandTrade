@@ -51,4 +51,5 @@ public class MainActivity extends BaseActivity {
         tabViewChildList.add(new TabViewChild(R.drawable.ic_mine_sel,R.drawable.ic_mine_unsel,"我的",mineFragment));
         mainTabView.setTabViewChild(tabViewChildList,getSupportFragmentManager());
     }
+
 }

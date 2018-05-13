@@ -1,6 +1,5 @@
 package com.wanghongyun.secondhandtrade.activity;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wanghongyun.secondhandtrade.R;
+import com.wanghongyun.secondhandtrade.utils.BundleUtils;
+import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,8 +27,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by 李维升 on 2018/5/1.
  */
 
-public class GoodDetailsActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
-
+public class GoodDetailsActivity extends AppCompatActivity{
+    private int GOODS_ID;
     @BindView(R.id.tv_goods_details_goods_name)
     TextView tvGoodsDetailsGoodsName;
     @BindView(R.id.civ_user_head_image)
@@ -56,6 +57,7 @@ public class GoodDetailsActivity extends AppCompatActivity implements MenuItem.O
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GOODS_ID= BundleUtils.getInt(this,"GOODS_ID");
         setContentView(R.layout.activity_goods_details);
         ButterKnife.bind(this);
         this.initView();
@@ -93,8 +95,19 @@ public class GoodDetailsActivity extends AppCompatActivity implements MenuItem.O
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+            case R.id.homeAsUp:
+                ToastUtils.showMsg(this,"dddd");
+                return true;
+            case R.id.item_report:
+                ToastUtils.showMsg(this,"dddd");
+                return true;
+            case R.id.item_collect:
+                ToastUtils.showMsg(this,"dddd");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

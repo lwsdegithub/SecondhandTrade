@@ -1,4 +1,4 @@
-package com.wanghongyun.secondhandtrade.utils;
+package com.wanghongyun.secondhandtrade.helper;
 
 import android.content.Context;
 import android.widget.ImageView;
