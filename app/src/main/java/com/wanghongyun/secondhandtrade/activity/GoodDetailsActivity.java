@@ -108,29 +108,38 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
         goodsDetailsCall.enqueue(new Callback<GoodsDetails>() {
             @Override
             public void onResponse(Call<GoodsDetails> call, Response<GoodsDetails> response) {
-                if (response.isSuccessful()){
-                    GoodsDetails goodsDetails=response.body();
-                    Goods goods=goodsDetails.goods;
-                    User user=goodsDetails.user;
+                if (response.isSuccessful()) {
+                    GoodsDetails goodsDetails = response.body();
+                    Goods goods = goodsDetails.goods;
+                    User user = goodsDetails.user;
                     //填充数据
                     tvGoodsDetailsUserName.setText(user.getUserName());
                     tvGoodsDetailsGoodsName.setText(goods.getGoods_name());
                     tvGoodsDetailsDescription.setText(goods.getGoods_description());
-                    GlideUtils.loadImage(getApplicationContext(),NetConstant.BASE_HEAD_ICON_URL+user.getHeadIcon(),civUserHeadImage);
-                    String [] photos=goods.getGoods_photo().split(",");
-                    if (photos.length>=1&&!photos[0].isEmpty()){
-                        url1=photos[0];
-                    GlideUtils.loadImage(getApplicationContext(),NetConstant.BASE_GOODS_PHOTOS_URL+url1,ivGoodsDetailsGoodsPhoto1);}
-                    if (photos.length>=2&&!photos[1].isEmpty()){
-                        url2=photos[1];
-                    GlideUtils.loadImage(getApplicationContext(),NetConstant.BASE_GOODS_PHOTOS_URL+url2,ivGoodsDetailsGoodsPhoto2);}
-                    if (photos.length>=3&&!photos[2].isEmpty()){
-                        url3=photos[2];
-                    GlideUtils.loadImage(getApplicationContext(),NetConstant.BASE_GOODS_PHOTOS_URL+url3,ivGoodsDetailsGoodsPhoto3);}
-                    //填充评论数据
-                    commentList.clear();
-                    commentList.addAll(goodsDetails.comments);
-                    commentListAdapter.notifyDataSetChanged();
+                    GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_HEAD_ICON_URL + user.getHeadIcon(), civUserHeadImage);
+                    String[] photos = goods.getGoods_photo().split(",");
+                    if (photos[0].isEmpty()) {
+                        ivGoodsDetailsGoodsPhoto1.setVisibility(View.GONE);
+                        ivGoodsDetailsGoodsPhoto2.setVisibility(View.GONE);
+                        ivGoodsDetailsGoodsPhoto3.setVisibility(View.GONE);
+                    } else {
+                        if (photos.length >= 1 && !photos[0].isEmpty()) {
+                            url1 = photos[0];
+                            GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url1, ivGoodsDetailsGoodsPhoto1);
+                        }
+                        if (photos.length >= 2 && !photos[1].isEmpty()) {
+                            url2 = photos[1];
+                            GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url2, ivGoodsDetailsGoodsPhoto2);
+                        }
+                        if (photos.length >= 3 && !photos[2].isEmpty()) {
+                            url3 = photos[2];
+                            GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url3, ivGoodsDetailsGoodsPhoto3);
+                        }
+                        //填充评论数据
+                        commentList.clear();
+                        commentList.addAll(goodsDetails.comments);
+                        commentListAdapter.notifyDataSetChanged();
+                    }
                 }
             }
             @Override
