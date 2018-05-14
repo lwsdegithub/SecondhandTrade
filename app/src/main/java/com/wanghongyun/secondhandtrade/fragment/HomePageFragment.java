@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.activity.AddNewGoodsActivity;
 import com.wanghongyun.secondhandtrade.activity.GoodDetailsActivity;
@@ -26,25 +25,23 @@ import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsList;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
 import com.wanghongyun.secondhandtrade.helper.ImageFlipperLoader;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
-import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 import com.wanghongyun.secondhandtrade.widget.MyListView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -103,27 +100,19 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     }
     //初始化数据
     private void initData(){
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(NetConstant.BaseUrl).build();
+        Retrofit retrofit=new Retrofit.Builder().baseUrl(NetConstant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         final GoodsHelper goodsHelper=retrofit.create(GoodsHelper.class);
-        Call<ResponseBody> goodsListCall=goodsHelper.getCall();
-        goodsListCall.enqueue(new Callback<ResponseBody>() {
+        Call<GoodsList> goodsListCall=goodsHelper.getCall();
+        goodsListCall.enqueue(new Callback<GoodsList>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()){
-                    try {
-                        String result=response.body().string();
-                        Gson gson=new Gson();
-                        ArrayList<Goods> temp = (ArrayList<Goods>) gson.fromJson(result,GoodsList.class).goodsList;
-                        goodsList.clear();
-                        goodsList.addAll(temp);
-                        adapter.notifyDataSetChanged();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+            public void onResponse(Call<GoodsList> call, Response<GoodsList> response) {
+                GoodsList temp =  response.body();
+                goodsList.clear();
+                goodsList.addAll(temp.goodsList);
+                adapter.notifyDataSetChanged();
             }
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<GoodsList> call, Throwable t) {
             }
         });
     }

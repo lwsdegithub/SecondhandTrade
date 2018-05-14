@@ -21,7 +21,6 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="14dp"
                     android:textSize="22sp"
-                    android:text="二手确认过眼神我遇见对的人出适当的售二手确"
                     android:textStyle="bold"
                     android:id="@+id/tv_goods_details_goods_name"
                     android:layout_width="match_parent"
@@ -47,7 +46,6 @@
                     <TextView
                         android:layout_toRightOf="@id/civ_user_head_image"
                         android:id="@+id/tv_goods_details_user_name"
-                        android:text="头号玩家"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:layout_marginLeft="5dp"
@@ -57,7 +55,6 @@
                     <Button
                         android:id="@+id/btn_goods_details_send_msg"
                         android:layout_alignParentRight="true"
-                        android:text="私聊"
                         android:textSize="15sp"
                         android:background="@drawable/bg_common_btn"
                         android:layout_marginRight="10dp"
@@ -81,7 +78,6 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tv_goods_details_description"
-                        android:text="二手确认过眼神我遇见对的人出适当的售二手确二手确认过眼神我遇见对的人出适当的售二手确二手确认过眼神我遇见对的人出适当的售二手确"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <LinearLayout
@@ -92,22 +88,19 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/iv_goods_details_goods_photo_1"
-                            android:src="@mipmap/ic_launcher"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="50dp" />
                         <ImageView
                             android:id="@+id/iv_goods_details_goods_photo_2"
-                            android:src="@mipmap/ic_launcher"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="50dp" />
                         <ImageView
                             android:id="@+id/iv_goods_details_goods_photo_3"
-                            android:src="@mipmap/ic_launcher"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                 </RelativeLayout>
                 <View
@@ -116,14 +109,14 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"/>
-                <ListView
+                <com.wanghongyun.secondhandtrade.widget.MyListView
                     android:layout_marginTop="25dp"
                     android:nestedScrollingEnabled="false"
                     android:layout_below="@id/article_details"
                     android:id="@+id/lv_goods_details_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </ListView>
+                </com.wanghongyun.secondhandtrade.widget.MyListView>
             </RelativeLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -66,7 +66,7 @@ public class GoodsListAdapter extends BaseAdapter {
                 myViewHolder.ivGoodsImage.setVisibility(View.GONE);
             } else {
                 //默认加载第一个
-                Glide.with(context).load(NetConstant.BaseGoodsPhotosUrl+goods.getGoods_photo().split(",")[0]).into(myViewHolder.ivGoodsImage);
+                Glide.with(context).load(NetConstant.BASE_GOODS_PHOTOS_URL +goods.getGoods_photo().split(",")[0]).into(myViewHolder.ivGoodsImage);
             }
         myViewHolder.tvGoodsCollectionCount.setText(goods.getCollection_count());
         myViewHolder.tvGoodsCommentCount.setText(goods.getComment_count());
