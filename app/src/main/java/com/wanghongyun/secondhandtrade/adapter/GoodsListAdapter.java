@@ -73,7 +73,7 @@ public class GoodsListAdapter extends BaseAdapter {
         myViewHolder.tvGoodsPrice.setText(goods.getGoods_price());
         return view;
     }
-    static class MyViewHolder{
+    private static class MyViewHolder{
         TextView tvGoodsName=null;
         TextView tvGoodsDescription=null;
         ImageView ivGoodsImage=null;

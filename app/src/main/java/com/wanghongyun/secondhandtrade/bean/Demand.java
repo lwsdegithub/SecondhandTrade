@@ -5,18 +5,18 @@ public class Demand {
 	private int user_id;
 	private String demand_name;
 	private String demand_content;
-	private String deamnd_time;
+	private String demand_time;
 	
 	public Demand() {
 		super();
 	}
-	public Demand(int demand_id, int user_id, String demand_name, String demand_content, String deamnd_time) {
+	public Demand(int demand_id, int user_id, String demand_name, String demand_content, String demand_time) {
 		super();
 		this.demand_id = demand_id;
 		this.user_id = user_id;
 		this.demand_name = demand_name;
 		this.demand_content = demand_content;
-		this.deamnd_time = deamnd_time;
+		this.demand_time = demand_time;
 	}
 	public int getDemand_id() {
 		return demand_id;
@@ -42,16 +42,16 @@ public class Demand {
 	public void setDemand_content(String demand_content) {
 		this.demand_content = demand_content;
 	}
-	public String getDeamnd_time() {
-		return deamnd_time;
+	public String getDemand_time() {
+		return demand_time;
 	}
-	public void setDeamnd_time(String deamnd_time) {
-		this.deamnd_time = deamnd_time;
+	public void setDemand_time(String demand_time) {
+		this.demand_time = demand_time;
 	}
 	@Override
 	public String toString() {
 		return "Demand [demand_id=" + demand_id + ", user_id=" + user_id + ", demand_name=" + demand_name
-				+ ", demand_content=" + demand_content + ", deamnd_time=" + deamnd_time + "]";
+				+ ", demand_content=" + demand_content + ", demand_time=" + demand_time + "]";
 	}
 	
 }

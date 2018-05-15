@@ -12,6 +12,7 @@ import com.wanghongyun.secondhandtrade.utils.GlideUtils;
 
 /**
  * Created by 李维升 on 2018/5/14.
+ * 自定义弹出图片Dialog
  */
 
 public class ImageDialog extends AlertDialog{

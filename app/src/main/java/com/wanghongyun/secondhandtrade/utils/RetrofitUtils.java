@@ -1,10 +1,6 @@
 package com.wanghongyun.secondhandtrade.utils;
 
-import com.wanghongyun.secondhandtrade.constant.NetConstant;
-import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsDetails;
-import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
 
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

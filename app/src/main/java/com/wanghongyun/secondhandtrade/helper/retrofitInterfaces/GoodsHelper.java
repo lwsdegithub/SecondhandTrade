@@ -13,8 +13,10 @@ import retrofit2.http.Query;
  */
 
 public interface GoodsHelper {
+    //获取所有的物品
     @GET("GetGoodsListSevlet")
     Call<GoodsList> getCall();
+    //根据物品ID获取
     @GET("GoodsDetailsSevlet")
     Call<GoodsDetails> getGoodsDetailsCall(@Query("GOODS_ID") int GOODS_ID);
 }
