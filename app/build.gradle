@@ -41,8 +41,6 @@ dependencies {
     compile 'com.github.open-android:FragmentTabhostUtils:0.5.0'
     //图片轮播
     compile 'com.youth.banner:banner:1.4.10'  //最新版本
-    //gif
-    compile 'com.github.Cutta:GifView:1.1'
 }
 
 // 添加插件

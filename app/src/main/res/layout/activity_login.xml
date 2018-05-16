@@ -44,19 +44,16 @@
         android:background="@drawable/bg_common_btn"
         android:text="登录"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btn_register"
-        android:layout_below="@id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_login"
+        android:layout_alignBottom="@+id/btn_login"
+        android:layout_alignEnd="@+id/lay2"
         android:background="@drawable/bg_common_btn"
-        android:text="注册"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:text="注册" />
 </RelativeLayout>
