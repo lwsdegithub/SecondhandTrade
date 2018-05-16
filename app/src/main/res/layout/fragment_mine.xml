@@ -9,5 +9,12 @@
         android:layout_height="wrap_content">
         <include layout="@layout/common_toolbar_content"/>
     </android.support.v7.widget.Toolbar>
-
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_fragment_mine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:headerLayout="@layout/fragment_mine_nav_header"
+        app:menu="@menu/fragment_mine_nav_menu">
+    </android.support.design.widget.NavigationView>
 </LinearLayout>

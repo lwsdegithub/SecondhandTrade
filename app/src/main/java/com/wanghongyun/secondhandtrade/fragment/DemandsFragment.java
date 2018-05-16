@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wanghongyun.secondhandtrade.R;
+import com.wanghongyun.secondhandtrade.activity.AddNewDemandActivity;
 import com.wanghongyun.secondhandtrade.adapter.DemandListAdapter;
 import com.wanghongyun.secondhandtrade.base.BaseFragment;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
@@ -117,7 +118,7 @@ public class DemandsFragment extends BaseFragment implements AdapterView.OnItemC
 
     @OnClick({R.id.fab_demands})
     public void OnClick(View view){
-        ToastUtils.showMsgLong(getContext(),"hello");
+        IntentUtils.startActivity(getContext(), AddNewDemandActivity.class);
     }
 
     @Override

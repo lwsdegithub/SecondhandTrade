@@ -5,12 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
-
 /**
- * Created by 李维升 on 2018/5/13.
+ * Created by 李维升 on 2018/5/15.
  */
 
-public class AddNewGoodsActivity extends AppCompatActivity {
+public class AddNewDemandActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,8 +17,15 @@ public class AddNewGoodsActivity extends AppCompatActivity {
     }
     private void initView(){
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle("添加新物品");
+        actionBar.setTitle("添加新需求");
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        this.initData();
+    }
+
+
+    private void initData(){
+
     }
 
 
@@ -30,3 +36,4 @@ public class AddNewGoodsActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 }
+

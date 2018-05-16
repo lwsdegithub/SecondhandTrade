@@ -11,8 +11,11 @@ import java.lang.reflect.Method;
  */
 
 public class SharedPreferencesUtils {
-
+    //文件名
     public static final String USER="USER";
+
+    //USER下的相关数据
+    public static final String IS_LOGIN="IS_LOGIN";
 
     public static void putData(Context context,String fileName, String key, Object object)
     {
