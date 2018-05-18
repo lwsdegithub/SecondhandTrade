@@ -5,6 +5,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/civ_fragment_mine_user_head_image"
         android:layout_width="100dp"
+        android:layout_marginTop="25dp"
         android:src="@mipmap/ic_launcher"
         android:layout_height="100dp" />
     <TextView
@@ -14,6 +15,7 @@
         android:textSize="20sp"
         android:text="未登录"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

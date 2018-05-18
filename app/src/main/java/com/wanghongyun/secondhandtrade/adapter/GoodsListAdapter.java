@@ -58,19 +58,21 @@ public class GoodsListAdapter extends BaseAdapter {
         }else {
             myViewHolder= (MyViewHolder) view.getTag();
         }
-        Goods goods=goodsList.get(i);
-        myViewHolder.tvGoodsName.setText(goods.getGoods_name());
-        myViewHolder.tvGoodsDescription.setText(goods.getGoods_description());
-        //如果没有图片，设置图片不可见，如果有，通过Glide设置加载image
+        if (!goodsList.isEmpty()){
+            Goods goods=goodsList.get(i);
+            myViewHolder.tvGoodsName.setText(goods.getGoods_name());
+            myViewHolder.tvGoodsDescription.setText(goods.getGoods_description());
+            //如果没有图片，设置图片不可见，如果有，通过Glide设置加载image
             if (goods.getGoods_photo().isEmpty()) {
                 myViewHolder.ivGoodsImage.setVisibility(View.GONE);
             } else {
                 //默认加载第一个
                 Glide.with(context).load(NetConstant.BASE_GOODS_PHOTOS_URL +goods.getGoods_photo().split(",")[0]).into(myViewHolder.ivGoodsImage);
             }
-        myViewHolder.tvGoodsCollectionCount.setText(goods.getCollection_count());
-        myViewHolder.tvGoodsCommentCount.setText(goods.getComment_count());
-        myViewHolder.tvGoodsPrice.setText(goods.getGoods_price());
+            myViewHolder.tvGoodsCollectionCount.setText(goods.getCollection_count());
+            myViewHolder.tvGoodsCommentCount.setText(goods.getComment_count());
+            myViewHolder.tvGoodsPrice.setText(goods.getGoods_price());
+        }
         return view;
     }
     private static class MyViewHolder{

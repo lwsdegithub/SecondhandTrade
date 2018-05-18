@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class BundleUtils {
+
     public static int getInt(AppCompatActivity context,String key){
         Bundle bundle=new Bundle();
         bundle=context.getIntent().getExtras();

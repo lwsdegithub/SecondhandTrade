@@ -42,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final int SUBMIT_CODE_SUCCESS=2;
     private static final int SUBMIT_CODE_ERROR=3;
 
+    //ButterKnife
     @BindView(R.id.gif_bg_register)
     ImageView gifBgRegister;
     @BindView(R.id.et_user_name_register)
@@ -115,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-
+    //ButterKnife
     @OnClick({R.id.btn_get_code,R.id.btn_register_confirm})
     public void onClick(View view){
         int id=view.getId();
@@ -131,11 +132,11 @@ public class RegisterActivity extends AppCompatActivity {
             case R.id.btn_register_confirm:
                 String phone1=etPhoneRegister.getText().toString();
                 if (StringUtils.isRightPhone(phone1)&&!etUserNameRegister.getText().toString().isEmpty()&&!etPasswordRegister.getText().toString().isEmpty()){
-                    //submitCode("+86",phone1,etCode.getText().toString());
+                    submitCode("+86",phone1,etCode.getText().toString());
                     //测试用
-                    Message message=new Message();
-                    message.what=SUBMIT_CODE_SUCCESS;
-                    handler.sendMessage(message);
+                    //Message message=new Message();
+                    //message.what=SUBMIT_CODE_SUCCESS;
+                    //handler.sendMessage(message);
                 }else {
                     ToastUtils.showMsg(getApplicationContext(),"输入有误，请重新输入！");
                 }
@@ -153,6 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
         // 注册一个事件回调，用于处理发送验证码操作的结果,不在主线程里面，不能进行UI操作,使用Handler
         SMSSDK.registerEventHandler(new EventHandler() {
             public void afterEvent(int event, int result, Object data) {
+                //子线程中不能更新UI
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     Message message=new Message();
                     message.what=GET_CODE_SUCCESS;
@@ -172,6 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
         // 注册一个事件回调，用于处理提交验证码操作的结果
         SMSSDK.registerEventHandler(new EventHandler() {
             public void afterEvent(int event, int result, Object data) {
+                //子线程中不能更新UI
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     Message message=new Message();
                     message.what=SUBMIT_CODE_SUCCESS;

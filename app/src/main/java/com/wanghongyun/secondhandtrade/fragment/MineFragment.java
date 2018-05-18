@@ -106,9 +106,6 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
         unbinder.unbind();
     }
 
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

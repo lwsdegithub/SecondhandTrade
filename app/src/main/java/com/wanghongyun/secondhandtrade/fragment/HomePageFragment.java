@@ -25,6 +25,7 @@ import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsList;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
 import com.wanghongyun.secondhandtrade.helper.ImageFlipperLoader;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
+import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 import com.wanghongyun.secondhandtrade.widget.MyListView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -106,13 +107,20 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         goodsListCall.enqueue(new Callback<GoodsList>() {
             @Override
             public void onResponse(Call<GoodsList> call, Response<GoodsList> response) {
-                GoodsList temp =  response.body();
-                goodsList.clear();
-                goodsList.addAll(temp.goodsList);
-                adapter.notifyDataSetChanged();
+                if (response.isSuccessful()){
+                    GoodsList temp =  response.body();
+                    goodsList.clear();
+                    if (!temp.goodsList.isEmpty()){
+                        goodsList.addAll(temp.goodsList);
+                    }
+                    adapter.notifyDataSetChanged();
+                }else {
+                    ToastUtils.showMsg(getContext(),"服务器出错！！！");
+                }
             }
             @Override
             public void onFailure(Call<GoodsList> call, Throwable t) {
+                ToastUtils.showMsg(getContext(),"服务器出错！！！");
             }
         });
     }

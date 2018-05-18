@@ -15,6 +15,5 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setTheme(android.support.design.R.style.Theme_Design_Light_NoActionBar);
-
     }
 }
