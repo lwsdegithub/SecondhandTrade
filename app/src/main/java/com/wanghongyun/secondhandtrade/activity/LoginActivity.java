@@ -11,11 +11,22 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.wanghongyun.secondhandtrade.R;
+import com.wanghongyun.secondhandtrade.constant.NetConstant;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
+import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.UserHelper;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
+import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
+import com.wanghongyun.secondhandtrade.utils.SharedPreferencesUtils;
+import com.wanghongyun.secondhandtrade.utils.StringUtils;
+import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by 李维升 on 2018/5/16.
@@ -55,6 +66,35 @@ public class LoginActivity extends AppCompatActivity {
         int id=view.getId();
         switch (id){
             case R.id.btn_login:
+                Retrofit retrofit= RetrofitUtils.getRetrofit(NetConstant.BASE_URL);
+                UserHelper userHelper=retrofit.create(UserHelper.class);
+                String phone=etPhoneLogin.getText().toString();
+                String password=etPasswordLogin.getText().toString();
+                Call<Common> call=userHelper.getLoginCall(phone,password);
+                if (StringUtils.isRightPhone(phone)){
+                    call.enqueue(new Callback<Common>() {
+                        @Override
+                        public void onResponse(Call<Common> call, Response<Common> response) {
+                            Common common=response.body();
+                            if (common.getStatus()==NetConstant.LOGIN_SUCCESS){
+                                ToastUtils.showMsg(getApplicationContext(),"亲，登陆成功！");
+                                SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,true);
+                                SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.PHONE,etPhoneLogin.getText().toString());
+                                LoginActivity.this.finish();
+                            }else if (common.getStatus()==NetConstant.ACCOUNT_IS_NOT_EXISTED){
+                                ToastUtils.showMsg(getApplicationContext(),"账户不存在，请注册");
+                            }else if (common.getStatus()==NetConstant.PASSWORD_ERROR){
+                                ToastUtils.showMsg(getApplicationContext(),"密码错误");
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<Common> call, Throwable t) {
+                        }
+                    });
+                }else {
+                    ToastUtils.showMsg(getApplicationContext(),"请输入正确的手机号！");
+                }
+
                 break;
             case R.id.btn_register:
                 IntentUtils.startActivity(this,RegisterActivity.class);

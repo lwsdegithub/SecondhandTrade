@@ -1,9 +1,15 @@
 package com.wanghongyun.secondhandtrade.helper.retrofitInterfaces;
 
 import com.wanghongyun.secondhandtrade.bean.User;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -13,4 +19,17 @@ import retrofit2.http.Query;
 public interface UserHelper {
     @GET("UserSevlet")
     Call<User> getUserByIdCall(@Query("TYPE") int type,@Query("USER_ID") int userID);
+
+    @POST("RegisterSevlet")
+    @FormUrlEncoded
+    Call<Common> getRegisterCall(@Field("PHONE") String phone, @Field("USER_NAME") String userName, @Field("PASSWORD") String password);
+
+    @POST("LoginSevlet")
+    @FormUrlEncoded
+    Call<Common> getLoginCall(@Field("PHONE") String phone, @Field("PASSWORD") String password);
+
+    @POST("UserSevlet")
+    @FormUrlEncoded
+    Call<User> getUserByPhone(@Field("TYPE") String type,@Field("PHONE")String phone);
+
 }

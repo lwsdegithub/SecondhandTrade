@@ -17,6 +17,6 @@ public class BaseApplication extends Application {
         this.initData();
     }
     private void initData(){
-        SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,false);
+        //SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,false);
     }
 }

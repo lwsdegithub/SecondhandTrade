@@ -16,6 +16,8 @@ public class SharedPreferencesUtils {
 
     //USER下的相关数据
     public static final String IS_LOGIN="IS_LOGIN";
+    public static final String PHONE="PHONE";
+    public static final String USER_NAME="USER_NAME";
 
     public static void putData(Context context,String fileName, String key, Object object)
     {
