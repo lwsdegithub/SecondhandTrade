@@ -14,10 +14,11 @@ public class SharedPreferencesUtils {
     //文件名
     public static final String USER="USER";
 
-    //USER下的相关数据
+    //USER下的相关KEY
     public static final String IS_LOGIN="IS_LOGIN";
     public static final String PHONE="PHONE";
     public static final String USER_NAME="USER_NAME";
+    public static final String HEAD_ICON="HEAD_ICON";
 
     public static void putData(Context context,String fileName, String key, Object object)
     {

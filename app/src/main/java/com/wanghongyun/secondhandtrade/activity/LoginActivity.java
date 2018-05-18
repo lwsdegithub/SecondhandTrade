@@ -11,9 +11,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.wanghongyun.secondhandtrade.R;
+import com.wanghongyun.secondhandtrade.bean.User;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.UserHelper;
+import com.wanghongyun.secondhandtrade.utils.GlideUtils;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
 import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
 import com.wanghongyun.secondhandtrade.utils.SharedPreferencesUtils;
@@ -78,8 +80,25 @@ public class LoginActivity extends AppCompatActivity {
                             Common common=response.body();
                             if (common.getStatus()==NetConstant.LOGIN_SUCCESS){
                                 ToastUtils.showMsg(getApplicationContext(),"亲，登陆成功！");
+                                //数据保存
                                 SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,true);
                                 SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.PHONE,etPhoneLogin.getText().toString());
+
+                                Retrofit retrofit=RetrofitUtils.getRetrofit(NetConstant.BASE_URL);
+                                UserHelper userHelper=retrofit.create(UserHelper.class);
+                                Call<User> userCall=userHelper.getUserByPhone("1",(String) SharedPreferencesUtils.getData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.PHONE,"1"));
+                                userCall.enqueue(new Callback<User>() {
+                                    @Override
+                                    public void onResponse(Call<User> call, Response<User> response) {
+                                        User user=response.body();
+                                        //数据保存
+                                        SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,user.getUserName());
+                                        SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,user.getHeadIcon());
+                                    }
+                                    @Override
+                                    public void onFailure(Call<User> call, Throwable t) {
+                                    }
+                                });
                                 LoginActivity.this.finish();
                             }else if (common.getStatus()==NetConstant.ACCOUNT_IS_NOT_EXISTED){
                                 ToastUtils.showMsg(getApplicationContext(),"账户不存在，请注册");

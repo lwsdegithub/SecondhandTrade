@@ -68,7 +68,6 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
         mainView = inflater.inflate(R.layout.fragment_mine, null, false);
         unbinder = ButterKnife.bind(this, mainView);
         initView();
-        Log.e("oncreaste","oncreateView");
         return mainView;
     }
 
@@ -96,20 +95,8 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
     public void onResume() {
         super.onResume();
         if ((boolean)SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,false)){
-            Retrofit retrofit=RetrofitUtils.getRetrofit(NetConstant.BASE_URL);
-            UserHelper userHelper=retrofit.create(UserHelper.class);
-            Call<User> userCall=userHelper.getUserByPhone("1",(String) SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.PHONE,"1"));
-            userCall.enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    User user=response.body();
-                    GlideUtils.loadImage(getContext(),NetConstant.BASE_HEAD_ICON_URL+user.getHeadIcon(),headIcon);
-                    userName.setText(user.getUserName());
-                }
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                }
-            });
+            GlideUtils.loadImage(getContext(),NetConstant.BASE_HEAD_ICON_URL+SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,"000"),headIcon);
+            userName.setText((String)SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,"未登录"));
         }
     }
     @Override
