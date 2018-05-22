@@ -19,6 +19,7 @@ public class SharedPreferencesUtils {
     public static final String PHONE="PHONE";
     public static final String USER_NAME="USER_NAME";
     public static final String HEAD_ICON="HEAD_ICON";
+    public static final String USER_ID="USER_ID";
 
     public static void putData(Context context,String fileName, String key, Object object)
     {

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.activity.AddNewDemandActivity;
+import com.wanghongyun.secondhandtrade.activity.LoginActivity;
 import com.wanghongyun.secondhandtrade.adapter.DemandListAdapter;
 import com.wanghongyun.secondhandtrade.base.BaseFragment;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
@@ -24,6 +25,7 @@ import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.DemandHelper;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
 import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
 import com.wanghongyun.secondhandtrade.utils.ToastUtils;
+import com.wanghongyun.secondhandtrade.utils.UserUtils;
 import com.wanghongyun.secondhandtrade.widget.MyListView;
 
 import java.util.ArrayList;
@@ -118,7 +120,13 @@ public class DemandsFragment extends BaseFragment implements AdapterView.OnItemC
 
     @OnClick({R.id.fab_demands})
     public void OnClick(View view){
-        IntentUtils.startActivity(getContext(), AddNewDemandActivity.class);
+        if (UserUtils.isLogin(getContext())){
+            IntentUtils.startActivity(getContext(), AddNewDemandActivity.class);
+        }else {
+            ToastUtils.showMsg(getContext(),"还没有登录哦");
+            IntentUtils.startActivity(getContext(), LoginActivity.class);
+        }
+
     }
 
     @Override
@@ -128,5 +136,11 @@ public class DemandsFragment extends BaseFragment implements AdapterView.OnItemC
             swipeRefreshLayout.setRefreshing(false);
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.initData();
     }
 }

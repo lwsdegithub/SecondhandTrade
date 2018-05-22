@@ -19,11 +19,15 @@ import com.wanghongyun.secondhandtrade.bean.Comment;
 import com.wanghongyun.secondhandtrade.bean.Goods;
 import com.wanghongyun.secondhandtrade.bean.User;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsDetails;
+import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.CollectionHelper;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
 import com.wanghongyun.secondhandtrade.utils.BundleUtils;
 import com.wanghongyun.secondhandtrade.utils.GlideUtils;
+import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
 import com.wanghongyun.secondhandtrade.utils.ToastUtils;
+import com.wanghongyun.secondhandtrade.utils.UserUtils;
 import com.wanghongyun.secondhandtrade.widget.MyListView;
 import com.wanghongyun.secondhandtrade.widget.dialog.ImageDialog;
 
@@ -179,11 +183,29 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
         switch (id){
+            //举报
             case R.id.item_report:
                 ToastUtils.showMsg(this,"dddd");
                 return true;
+            //添加收藏
             case R.id.item_collect:
-                ToastUtils.showMsg(this,"dddd");
+                RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(CollectionHelper.class).getAddCollectionCall(0,GOODS_ID, UserUtils.getUserId(getApplicationContext())).enqueue(new Callback<Common>() {
+                    @Override
+                    public void onResponse(Call<Common> call, Response<Common> response) {
+                        if (response.isSuccessful()){
+                            if (response.body().getStatus()==NetConstant.OK){
+                                ToastUtils.showMsg(getApplicationContext(),"收藏成功");
+                            }
+                        }else {
+                            ToastUtils.showMsg(getApplicationContext(),"收藏失败");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Common> call, Throwable t) {
+                        ToastUtils.showMsg(getApplicationContext(),"收藏失败");
+                    }
+                });
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.activity.AddNewGoodsActivity;
 import com.wanghongyun.secondhandtrade.activity.GoodDetailsActivity;
+import com.wanghongyun.secondhandtrade.activity.LoginActivity;
 import com.wanghongyun.secondhandtrade.adapter.GoodsListAdapter;
 import com.wanghongyun.secondhandtrade.base.BaseFragment;
 import com.wanghongyun.secondhandtrade.bean.Goods;
@@ -26,6 +27,7 @@ import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
 import com.wanghongyun.secondhandtrade.helper.ImageFlipperLoader;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
 import com.wanghongyun.secondhandtrade.utils.ToastUtils;
+import com.wanghongyun.secondhandtrade.utils.UserUtils;
 import com.wanghongyun.secondhandtrade.widget.MyListView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -143,7 +145,13 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
     @OnClick({R.id.fab_home_page})
     public void onClick(View view){
-        IntentUtils.startActivity(getActivity(), AddNewGoodsActivity.class);
+        if (UserUtils.isLogin(getActivity())){
+            IntentUtils.startActivity(getActivity(), AddNewGoodsActivity.class);
+        }else {
+            ToastUtils.showMsg(getActivity(),"还没有登录哦");
+            IntentUtils.startActivity(getActivity(), LoginActivity.class);
+        }
+
     }
 
 
@@ -157,6 +165,18 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     //
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        IntentUtils.startActivityWithInt(getActivity(), GoodDetailsActivity.class,"GOODS_ID",goodsList.get(i).getGoods_id());
+        if (UserUtils.isLogin(getActivity())){
+            IntentUtils.startActivityWithInt(getActivity(), GoodDetailsActivity.class,"GOODS_ID",goodsList.get(i).getGoods_id());
+        }
+        else {
+            ToastUtils.showMsg(getActivity(),"还没有登录哦");
+            IntentUtils.startActivity(getActivity(), LoginActivity.class);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.initData();
     }
 }

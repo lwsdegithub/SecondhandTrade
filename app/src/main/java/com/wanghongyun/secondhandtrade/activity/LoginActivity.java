@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                         //数据保存
                                         SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,user.getUserName());
                                         SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,user.getHeadIcon());
+                                        SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_ID,user.getId());
                                     }
                                     @Override
                                     public void onFailure(Call<User> call, Throwable t) {

@@ -28,6 +28,7 @@ import com.wanghongyun.secondhandtrade.utils.IntentUtils;
 import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
 import com.wanghongyun.secondhandtrade.utils.SharedPreferencesUtils;
 import com.wanghongyun.secondhandtrade.utils.ToastUtils;
+import com.wanghongyun.secondhandtrade.utils.UserUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,7 +95,7 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
     @Override
     public void onResume() {
         super.onResume();
-        if ((boolean)SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,false)){
+        if (UserUtils.isLogin(getContext())){
             GlideUtils.loadImage(getContext(),NetConstant.BASE_HEAD_ICON_URL+SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,"000"),headIcon);
             userName.setText((String)SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,"未登录"));
         }
@@ -108,8 +109,7 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        return false;
+        return true;
     }
 
     @Override
