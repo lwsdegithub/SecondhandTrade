@@ -23,8 +23,13 @@
         <activity android:name=".activity.AddNewGoodsActivity" android:theme="@style/Theme.Design.Light" />
         <activity android:name=".activity.AddNewDemandActivity" android:theme="@style/Theme.Design.Light"/>
         <activity android:name=".activity.LoginActivity" android:theme="@style/Theme.Design.Light"/>
-        <activity android:name=".activity.MyDetailsActivity" android:theme="@style/Theme.Design.Light"/>
+        <activity android:name=".activity.Mine.MyDetailsActivity" android:theme="@style/Theme.Design.Light"/>
         <activity android:name=".activity.RegisterActivity" android:theme="@style/Theme.Design.Light"/>
+        <activity android:name=".activity.Mine.MyGoodsActivity" android:theme="@style/Theme.Design.Light"/>
+        <activity android:name=".activity.Mine.MyCollectionActivity" android:theme="@style/Theme.Design.Light"/>
+        <activity android:name=".activity.Mine.MyDemandsActivity" android:theme="@style/Theme.Design.Light"/>
+        <activity android:name=".activity.AboutActivity" android:theme="@style/Theme.Design.Light"/>
+
     </application>
     <!-- if you want to load images from the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
