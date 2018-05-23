@@ -175,7 +175,8 @@ public class AddNewGoodsActivity extends AppCompatActivity {
             public void onResponse(Call<Common> call, Response<Common> response) {
                 if (response.isSuccessful()){
                     if (response.body().getStatus()==NetConstant.UPLOAD_SUCCESS){
-                        ToastUtils.showMsg(getApplicationContext(),"上传成功，记得刷新哦");
+                        ToastUtils.showMsg(getApplicationContext(),"上传成功");
+                        AddNewGoodsActivity.this.finish();
                     }
                 }else {
                     ToastUtils.showMsg(getApplicationContext(),"上传失败");

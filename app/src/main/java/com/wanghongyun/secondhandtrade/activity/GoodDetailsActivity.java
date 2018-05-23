@@ -1,5 +1,6 @@
 package com.wanghongyun.secondhandtrade.activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,6 +24,7 @@ import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsDetails;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.CollectionHelper;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
+import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.ReportHelper;
 import com.wanghongyun.secondhandtrade.utils.BundleUtils;
 import com.wanghongyun.secondhandtrade.utils.GlideUtils;
 import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
@@ -30,6 +32,7 @@ import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 import com.wanghongyun.secondhandtrade.utils.UserUtils;
 import com.wanghongyun.secondhandtrade.widget.MyListView;
 import com.wanghongyun.secondhandtrade.widget.dialog.ImageDialog;
+import com.wanghongyun.secondhandtrade.widget.dialog.ReportDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,7 +188,7 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
         switch (id){
             //举报
             case R.id.item_report:
-                ToastUtils.showMsg(this,"dddd");
+                new ReportDialog(this,GOODS_ID).show();
                 return true;
             //添加收藏
             case R.id.item_collect:
@@ -200,7 +203,6 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
                             ToastUtils.showMsg(getApplicationContext(),"收藏失败");
                         }
                     }
-
                     @Override
                     public void onFailure(Call<Common> call, Throwable t) {
                         ToastUtils.showMsg(getApplicationContext(),"收藏失败");
