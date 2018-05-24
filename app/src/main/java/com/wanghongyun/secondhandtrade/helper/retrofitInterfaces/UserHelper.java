@@ -2,6 +2,7 @@ package com.wanghongyun.secondhandtrade.helper.retrofitInterfaces;
 
 import com.wanghongyun.secondhandtrade.bean.User;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.Mine.MyGoods;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -31,5 +32,8 @@ public interface UserHelper {
     @POST("UserSevlet")
     @FormUrlEncoded
     Call<User> getUserByPhone(@Field("TYPE") String type,@Field("PHONE")String phone);
+
+    @GET("UserSevlet")
+    Call<MyGoods> getMyGoodsCall(@Query("TYPE") int type,@Query("USER_ID") int userId);
 
 }

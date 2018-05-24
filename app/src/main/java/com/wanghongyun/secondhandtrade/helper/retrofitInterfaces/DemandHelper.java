@@ -1,7 +1,10 @@
 package com.wanghongyun.secondhandtrade.helper.retrofitInterfaces;
 
+import com.wanghongyun.secondhandtrade.bean.Demand;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.DemandList;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -21,4 +24,7 @@ public interface DemandHelper {
     @POST("AddDemandSevlet")
     @FormUrlEncoded
     Call<Common> getAddDemandCall(@Field("USER_ID") int userId,@Field("CONTENT") String content);
+
+    @GET("UserSevlet")
+    Call<List<Demand>> getDemandListByUserId(@Query("TYPE") int type,@Query("USER_ID") int userId);
 }

@@ -4,31 +4,33 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.bean.Collection;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.Mine.MyCollection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 李维升 on 2018/5/23.
  */
 
-public class MyCollectionAdapter extends BaseAdapter {
-    private List<Collection> collectionList;
+public class MyCollectionAdapter extends BaseAdapter implements View.OnClickListener {
+    private ArrayList<MyCollection.SimpleGoods> collectionList;
     private Context context;
 
-    public MyCollectionAdapter(List<Collection> collectionList, Context context) {
+    public MyCollectionAdapter(ArrayList<MyCollection.SimpleGoods> collectionList, Context context) {
         this.collectionList = collectionList;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-
         return collectionList.size();
     }
 
@@ -53,10 +55,18 @@ public class MyCollectionAdapter extends BaseAdapter {
         }else {
             viewHolder= (ViewHolder) view.getTag();
         }
-        Collection collection=collectionList.get(i);
-
+        if (!collectionList.isEmpty()){
+            viewHolder.textView.setText(collectionList.get(i).getGoods_name());
+            viewHolder.button.setText("删除");
+            viewHolder.button.setOnClickListener(this);
+        }
         return view;
     }
+    @Override
+    public void onClick(View view) {
+
+    }
+
     static class ViewHolder{
         TextView textView;
         Button button;

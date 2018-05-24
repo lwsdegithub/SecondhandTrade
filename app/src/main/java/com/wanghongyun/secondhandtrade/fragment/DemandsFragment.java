@@ -95,13 +95,18 @@ public class DemandsFragment extends BaseFragment implements AdapterView.OnItemC
         call.enqueue(new Callback<DemandList>() {
             @Override
             public void onResponse(Call<DemandList> call, Response<DemandList> response) {
-                DemandList demandList=response.body();
-                demandDetailsList.clear();
-                demandDetailsList.addAll(demandList.demandDetailsList);
-                demandListAdapter.notifyDataSetChanged();
+                if (response.isSuccessful()){
+                    DemandList demandList=response.body();
+                    demandDetailsList.clear();
+                    demandDetailsList.addAll(demandList.demandDetailsList);
+                    demandListAdapter.notifyDataSetChanged();
+                }else {
+                    ToastUtils.showMsg(getContext(),"请求失败");
+                }
             }
             @Override
             public void onFailure(Call<DemandList> call, Throwable t) {
+                ToastUtils.showMsg(getContext(),"服务器出错");
             }
         });
     }

@@ -108,21 +108,27 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id=item.getItemId();
-        switch (id){
-            case R.id.collection:
-                IntentUtils.startActivity(getContext(), MyCollectionActivity.class);
-                break;
-            case R.id.goods:
-                IntentUtils.startActivity(getContext(), MyGoodsActivity.class);
-                break;
-            case R.id.demand:
-                IntentUtils.startActivity(getContext(), MyDemandsActivity.class);
-                break;
-            case R.id.about:
-                IntentUtils.startActivity(getContext(), AboutActivity.class);
-                break;
+        if (UserUtils.isLogin(getContext())){
+            int id=item.getItemId();
+            switch (id){
+                case R.id.collection:
+                    IntentUtils.startActivity(getContext(), MyCollectionActivity.class);
+                    break;
+                case R.id.goods:
+                    IntentUtils.startActivity(getContext(), MyGoodsActivity.class);
+                    break;
+                case R.id.demand:
+                    IntentUtils.startActivity(getContext(), MyDemandsActivity.class);
+                    break;
+                case R.id.about:
+                    IntentUtils.startActivity(getContext(), AboutActivity.class);
+                    break;
+            }
+        }else {
+            ToastUtils.showMsg(getContext(),"还没有登录哦");
+            IntentUtils.startActivity(getContext(),LoginActivity.class);
         }
+
         return true;
     }
 

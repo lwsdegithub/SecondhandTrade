@@ -1,6 +1,7 @@
 package com.wanghongyun.secondhandtrade.adapter.Mine;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,9 +18,15 @@ import java.util.List;
  * Created by 李维升 on 2018/5/23.
  */
 
-public class MyDemandAdapter extends BaseAdapter {
+public class MyDemandAdapter extends BaseAdapter implements View.OnClickListener {
     private List<Demand> demandList;
     private Context context;
+
+    public MyDemandAdapter(List<Demand> demandList, Context context) {
+        this.demandList = demandList;
+        this.context = context;
+    }
+
     @Override
     public int getCount() {
 
@@ -47,9 +54,18 @@ public class MyDemandAdapter extends BaseAdapter {
         }else {
             viewHolder= (MyCollectionAdapter.ViewHolder) view.getTag();
         }
-
+        if (!demandList.isEmpty()){
+            viewHolder.textView.setText(demandList.get(i).getDemand_content());
+            viewHolder.button.setOnClickListener(this);
+        }
         return view;
     }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
     static class ViewHolder{
         TextView textView;
         Button button;
