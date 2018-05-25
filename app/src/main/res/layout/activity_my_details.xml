@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_head_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+    <include layout="@layout/common_key_value" android:id="@+id/ckv_phone" android:layout_below="@id/civ_head_icon" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="20dp"/>
+    <include layout="@layout/common_key_value" android:id="@+id/ckv_user_name" android:layout_below="@id/ckv_phone" android:layout_width="match_parent" android:layout_height="60dp"/>
+    <include layout="@layout/common_key_value" android:id="@+id/ckv_credit_score" android:layout_below="@id/ckv_user_name" android:layout_width="match_parent" android:layout_height="60dp"/>
 </RelativeLayout>

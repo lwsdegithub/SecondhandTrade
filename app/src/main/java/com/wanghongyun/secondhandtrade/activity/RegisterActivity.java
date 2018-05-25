@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                 case SUBMIT_CODE_SUCCESS:
                     Retrofit retrofit=RetrofitUtils.getRetrofit(NetConstant.BASE_URL);
                     UserHelper userHelper=retrofit.create(UserHelper.class);
-                    Call<Common> commonCall=userHelper.getRegisterCall(etPhoneRegister.getText().toString(),etUserNameRegister.getText().toString(),etUserNameRegister.getText().toString());
+                    Call<Common> commonCall=userHelper.getRegisterCall(etPhoneRegister.getText().toString(),etUserNameRegister.getText().toString(),etPasswordRegister.getText().toString());
                     commonCall.enqueue(new retrofit2.Callback<Common>() {
                         @Override
                         public void onResponse(Call<Common> call, Response<Common> response) {
@@ -143,12 +143,6 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
-
-
-
-
     //发送验证码
     private void sendCode( String country,String phone) {
         // 注册一个事件回调，用于处理发送验证码操作的结果,不在主线程里面，不能进行UI操作,使用Handler

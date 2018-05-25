@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.adapter.CommentListAdapter;
 import com.wanghongyun.secondhandtrade.bean.Comment;
@@ -109,7 +110,7 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
     }
     //初始化数据
     private void initData(){
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(NetConstant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit=RetrofitUtils.getRetrofit(NetConstant.BASE_URL);
         final GoodsHelper goodsHelper=retrofit.create(GoodsHelper.class);
         Call<GoodsDetails> goodsDetailsCall=goodsHelper.getGoodsDetailsCall(GOODS_ID);
         goodsDetailsCall.enqueue(new Callback<GoodsDetails>() {
@@ -125,32 +126,41 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
                     tvGoodsDetailsDescription.setText(goods.getGoods_description());
                     GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_HEAD_ICON_URL + user.getHeadIcon(), civUserHeadImage);
                     String[] photos = goods.getGoods_photo().split(",");
-                    if (photos[0].isEmpty()) {
-                        ivGoodsDetailsGoodsPhoto1.setVisibility(View.GONE);
-                        ivGoodsDetailsGoodsPhoto2.setVisibility(View.GONE);
-                        ivGoodsDetailsGoodsPhoto3.setVisibility(View.GONE);
-                    } else {
-                        if (photos.length >= 1 && !photos[0].isEmpty()) {
+                    //加载物品图片
+                    if (!photos[0].isEmpty()) {
+                        if (photos.length==1){
+                            ivGoodsDetailsGoodsPhoto1.setVisibility(View.VISIBLE);
                             url1 = photos[0];
                             GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url1, ivGoodsDetailsGoodsPhoto1);
-                        }
-                        if (photos.length >= 2 && !photos[1].isEmpty()) {
+                        }else if (photos.length==2){
+                            ivGoodsDetailsGoodsPhoto1.setVisibility(View.VISIBLE);
+                            ivGoodsDetailsGoodsPhoto2.setVisibility(View.VISIBLE);
+                            url1 = photos[0];
                             url2 = photos[1];
+                            GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url1, ivGoodsDetailsGoodsPhoto1);
                             GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url2, ivGoodsDetailsGoodsPhoto2);
-                        }
-                        if (photos.length >= 3 && !photos[2].isEmpty()) {
+
+                        }else if (photos.length==3){
+                            ivGoodsDetailsGoodsPhoto1.setVisibility(View.VISIBLE);
+                            ivGoodsDetailsGoodsPhoto2.setVisibility(View.VISIBLE);
+                            ivGoodsDetailsGoodsPhoto3.setVisibility(View.VISIBLE);
+                            url1 = photos[0];
+                            url2 = photos[1];
                             url3 = photos[2];
+                            GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url1, ivGoodsDetailsGoodsPhoto1);
+                            GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url2, ivGoodsDetailsGoodsPhoto2);
                             GlideUtils.loadImage(getApplicationContext(), NetConstant.BASE_GOODS_PHOTOS_URL + url3, ivGoodsDetailsGoodsPhoto3);
                         }
-                        //填充评论数据
-                        commentList.clear();
-                        commentList.addAll(goodsDetails.comments);
-                        commentListAdapter.notifyDataSetChanged();
                     }
+                    //填充评论数据
+                    commentList.clear();
+                    commentList.addAll(goodsDetails.comments);
+                    commentListAdapter.notifyDataSetChanged();
                 }
             }
             @Override
             public void onFailure(Call<GoodsDetails> call, Throwable t) {
+                ToastUtils.showMsg(getApplicationContext(),"加载失败！");
             }
         });
     }

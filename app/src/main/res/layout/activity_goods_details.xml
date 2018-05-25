@@ -91,16 +91,19 @@
                             android:id="@+id/iv_goods_details_goods_photo_1"
                             android:layout_width="0dp"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             android:layout_height="50dp" />
                         <ImageView
                             android:id="@+id/iv_goods_details_goods_photo_2"
                             android:layout_width="0dp"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             android:layout_height="50dp" />
                         <ImageView
                             android:id="@+id/iv_goods_details_goods_photo_3"
                             android:layout_width="0dp"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             android:layout_height="50dp" />
                     </LinearLayout>
                 </RelativeLayout>

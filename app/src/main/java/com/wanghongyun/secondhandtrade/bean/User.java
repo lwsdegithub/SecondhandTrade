@@ -5,7 +5,6 @@ public class User {
 	private String user_name;
 	private String phone;
 	private String password;
-	private String qq;
 	private String create_time;
 	private String head_icon;
 	private int credit_score;
@@ -13,14 +12,13 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(int user_id, String user_name, String phone, String password, String qq, String create_time,
+	public User(int user_id, String user_name, String phone, String password, String create_time,
 			String head_icon, int credit_score) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.phone = phone;
 		this.password = password;
-		this.qq = qq;
 		this.create_time = create_time;
 		this.head_icon = head_icon;
 		this.credit_score = credit_score;
@@ -49,12 +47,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getQq() {
-		return qq;
-	}
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
 	public String getCreateTime() {
 		return create_time;
 	}
@@ -76,7 +68,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name + ", phone=" + phone + ", password=" + password
-				+ ", qq=" + qq + ", create_time=" + create_time + ", head_icon=" + head_icon + ", credit_score="
+				+ ", create_time=" + create_time + ", head_icon=" + head_icon + ", credit_score="
 				+ credit_score + "]";
 	}
 	

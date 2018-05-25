@@ -79,6 +79,7 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
         navHeadView=navFragmentMine.getHeaderView(0);
         headIcon=navHeadView.findViewById(R.id.civ_fragment_mine_user_head_image);
         userName=navHeadView.findViewById(R.id.tv_fragment_mine_user_name);
+        //
         navHeadView.setOnClickListener(this);
         navFragmentMine.setNavigationItemSelectedListener(this);
 
@@ -92,6 +93,7 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
     public void onResume() {
         super.onResume();
         if (UserUtils.isLogin(getContext())){
+            UserUtils.updateSpData(getContext());
             GlideUtils.loadImage(getContext(),NetConstant.BASE_HEAD_ICON_URL+SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,"000"),headIcon);
             userName.setText((String)SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,"未登录"));
         }else {
@@ -108,9 +110,12 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (UserUtils.isLogin(getContext())){
-            int id=item.getItemId();
-            switch (id){
+        int id=item.getItemId();
+        if (id==R.id.about){
+            IntentUtils.startActivity(getContext(),AboutActivity.class);
+        }
+        if (UserUtils.isLogin(getContext())) {
+            switch (id) {
                 case R.id.collection:
                     IntentUtils.startActivity(getContext(), MyCollectionActivity.class);
                     break;
@@ -120,21 +125,18 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
                 case R.id.demand:
                     IntentUtils.startActivity(getContext(), MyDemandsActivity.class);
                     break;
-                case R.id.about:
-                    IntentUtils.startActivity(getContext(), AboutActivity.class);
-                    break;
             }
-        }else {
+        }
+        else {
             ToastUtils.showMsg(getContext(),"还没有登录哦");
             IntentUtils.startActivity(getContext(),LoginActivity.class);
         }
-
         return true;
     }
 
     @Override
     public void onClick(View view) {
-        if ((Boolean) SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,false)){
+        if (UserUtils.isLogin(getContext())){
             IntentUtils.startActivity(getContext(), MyDetailsActivity.class);
         }else {
             ToastUtils.showMsg(getContext(),"亲，还没有登录哦");
