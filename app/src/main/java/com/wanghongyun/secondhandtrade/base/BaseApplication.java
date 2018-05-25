@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.mob.MobSDK;
 import com.wanghongyun.secondhandtrade.utils.SharedPreferencesUtils;
+import com.wanghongyun.secondhandtrade.utils.UserUtils;
 
 /**
  * Created by 李维升 on 2018/4/25.
@@ -17,6 +18,8 @@ public class BaseApplication extends Application {
         this.initData();
     }
     private void initData(){
-        //SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.IS_LOGIN,false);
+        if (UserUtils.isLogin(this)){
+            MobSDK.setUser(UserUtils.getUserId(this)+"",UserUtils.getUserName(this),null,null);
+        }
     }
 }

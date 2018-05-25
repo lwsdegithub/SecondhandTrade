@@ -21,6 +21,9 @@ public class UserUtils {
     public static int getUserId(Context context){
         return (int) SharedPreferencesUtils.getData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_ID,0);
     }
+    public static String getUserName(Context context){
+        return (String) SharedPreferencesUtils.getData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,"头号玩家");
+    }
     //从服务器更新存储在SharedPreferences的个人数据
     public static void updateSpData(final Context context){
         RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(UserHelper.class).getUserByIdCall(0,getUserId(context)).enqueue(new Callback<User>() {

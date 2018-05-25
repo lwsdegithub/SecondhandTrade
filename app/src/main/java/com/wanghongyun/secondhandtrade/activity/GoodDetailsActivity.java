@@ -1,11 +1,13 @@
 package com.wanghongyun.secondhandtrade.activity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mob.imsdk.MobIM;
+import com.mob.imsdk.MobIMCallback;
+import com.mob.imsdk.model.IMMessage;
+import com.mob.imsdk.model.IMUser;
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.adapter.CommentListAdapter;
 import com.wanghongyun.secondhandtrade.bean.Comment;
@@ -54,6 +60,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     private int GOODS_ID;
+    private int USER_ID;
     private CommentListAdapter commentListAdapter;
     private ArrayList<Comment> commentList=new ArrayList<>();
 
@@ -121,6 +128,7 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
                     Goods goods = goodsDetails.goods;
                     User user = goodsDetails.user;
                     //填充数据
+                    USER_ID=user.getId();
                     tvGoodsDetailsUserName.setText(user.getUserName());
                     tvGoodsDetailsGoodsName.setText(goods.getGoods_name());
                     tvGoodsDetailsDescription.setText(goods.getGoods_description());
@@ -171,6 +179,7 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_goods_details_send_msg:
+                showSendMsgDialog();
                 break;
             case R.id.iv_goods_details_goods_photo_1:
                 new ImageDialog(this,url1).show();
@@ -184,6 +193,39 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
             case R.id.btn_send_comment:
                 break;
         }
+    }
+    //显示发送信息Dialog
+    private void showSendMsgDialog(){
+        View view=View.inflate(this,R.layout.common_edittext,null);
+        final EditText editText=view.findViewById(R.id.et_common);
+        new AlertDialog.Builder(this).setView(view).setTitle("发送消息").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String msg=editText.getText().toString();
+                if (!msg.isEmpty()){
+                    IMMessage imMessage=new IMMessage();
+                    IMUser imUser = new IMUser();
+                    imUser.setId(USER_ID+"");
+                    imMessage.setBody(msg);
+                    imMessage.setFromUserInfo(imUser);
+                    MobIM.getChatManager().sendMessage(imMessage, new MobIMCallback<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            ToastUtils.showMsg(getApplicationContext(),"发送成功");
+                        }
+                        @Override
+                        public void onError(int i, String s) {
+                            Log.e("ERROR",i+"");
+                            ToastUtils.showMsg(getApplicationContext(),"发送失败");
+                        }
+                    });
+                }
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        }).show();
     }
 
     @Override
