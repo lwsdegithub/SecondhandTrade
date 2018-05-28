@@ -1,10 +1,12 @@
 package com.wanghongyun.secondhandtrade.helper.retrofitInterfaces;
 
+import com.wanghongyun.secondhandtrade.bean.Goods;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsDetails;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsList;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -13,6 +15,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by 李维升 on 2018/5/10.
@@ -30,4 +33,8 @@ public interface GoodsHelper {
     @POST("AddGoodsSevlet")
     @Multipart
     Call<Common> getAddGoodsCall(@Part List<MultipartBody.Part> bodyPartList);
+
+    @GET("SearchGoodsServlet")
+    Call<List<Goods>> getSearchCall(@Query("KEY") String key);
+
 }

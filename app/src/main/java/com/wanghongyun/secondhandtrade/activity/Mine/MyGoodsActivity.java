@@ -51,7 +51,7 @@ public class MyGoodsActivity extends AppCompatActivity implements AdapterView.On
     private void initView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("我的发布");
+        actionBar.setTitle("个人出售");
 
 
         myGoodsAdapter=new MyGoodsAdapter(goodsList,this);

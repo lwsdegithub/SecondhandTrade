@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public class MyCollection {
+    public List<Integer> collectionIdList;
     public List<SimpleGoods> simpleGoodsList;
 
     public List<SimpleGoods> getSimpleGoodsList() {

@@ -13,5 +13,5 @@ import retrofit2.http.Query;
 public interface CommentHelper {
     //插入新评论，TYPE为0时，是插入方法，具体配置服务器有
     @GET("CommentSevlet")
-    Call<Common> getCommonCall(@Query("TYPE") int type,@Query("GOODS_ID") int goodId,@Query("USER_ID") int userId,@Query("COMMENT_CONTENT") String content);
+    Call<Common> getAddCommentCall(@Query("TYPE") int type,@Query("GOODS_ID") int goodId,@Query("USER_ID") int userId,@Query("COMMENT_CONTENT") String content);
 }

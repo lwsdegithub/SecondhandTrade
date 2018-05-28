@@ -21,4 +21,7 @@ public interface CollectionHelper {
 
     @GET("UserSevlet")
     Call<MyCollection> getMyCollectionCall(@Query("TYPE") int type,@Query("USER_ID") int userId);
+
+    @GET("CollectionServlet")
+    Call<Common> getDeleteCollectionCall(@Query("TYPE") int type,@Query("COLLECTION_ID") int collectionId);
 }

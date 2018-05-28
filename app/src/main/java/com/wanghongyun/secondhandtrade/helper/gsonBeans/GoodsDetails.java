@@ -13,12 +13,12 @@ import java.util.List;
 public class GoodsDetails {
     public Goods goods;
     public User user;
-    public List<Comment> comments;
+    public List<CommentDetails> commentDetailsList;
 
-    public GoodsDetails(Goods goods, User user, List<Comment> comments) {
+    public GoodsDetails(Goods goods, User user, List<CommentDetails> comments) {
         super();
         this.goods = goods;
         this.user = user;
-        this.comments = comments;
+        this.commentDetailsList = comments;
     }
 }

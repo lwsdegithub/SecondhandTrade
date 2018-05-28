@@ -34,8 +34,11 @@ import retrofit2.Response;
  */
 
 public class MyCollectionActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    ArrayList<MyCollection.SimpleGoods> simpleGoodsList=new ArrayList<>();
-    MyCollectionAdapter myCollectionAdapter;
+    private MyCollection myCollection=new MyCollection();
+    private List<Integer> collectionIdList=new ArrayList<>();
+    private List<MyCollection.SimpleGoods> simpleGoodsList=new ArrayList<>();
+
+    private MyCollectionAdapter myCollectionAdapter;
     @BindView(R.id.lv_my_collection)
     ListView lvMyCollection;
 
@@ -50,10 +53,10 @@ public class MyCollectionActivity extends AppCompatActivity implements AdapterVi
     private void initView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("我的收藏");
+        actionBar.setTitle("个人收藏");
         initData();
 
-        myCollectionAdapter=new MyCollectionAdapter(simpleGoodsList,this);
+        myCollectionAdapter=new MyCollectionAdapter(collectionIdList,simpleGoodsList,this);
         lvMyCollection.setAdapter(myCollectionAdapter);
         lvMyCollection.setOnItemClickListener(this);
         initData();
@@ -64,8 +67,10 @@ public class MyCollectionActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onResponse(Call<MyCollection> call, Response<MyCollection> response) {
                 if (response.isSuccessful()){
+                    collectionIdList.clear();
                     simpleGoodsList.clear();
-                    simpleGoodsList.addAll(response.body().getSimpleGoodsList());
+                    collectionIdList.addAll(response.body().collectionIdList);
+                    simpleGoodsList.addAll(response.body().simpleGoodsList);
                     myCollectionAdapter.notifyDataSetChanged();
                 }else {
                     ToastUtils.showMsg(getApplicationContext(),"请求失败");

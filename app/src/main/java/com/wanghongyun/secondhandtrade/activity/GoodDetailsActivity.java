@@ -27,9 +27,11 @@ import com.wanghongyun.secondhandtrade.bean.Comment;
 import com.wanghongyun.secondhandtrade.bean.Goods;
 import com.wanghongyun.secondhandtrade.bean.User;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.CommentDetails;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsDetails;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.CollectionHelper;
+import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.CommentHelper;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.ReportHelper;
 import com.wanghongyun.secondhandtrade.utils.BundleUtils;
@@ -62,7 +64,7 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
     private int GOODS_ID;
     private int USER_ID;
     private CommentListAdapter commentListAdapter;
-    private ArrayList<Comment> commentList=new ArrayList<>();
+    private ArrayList<CommentDetails> commentDetailsArrayList=new ArrayList<>();
 
     private String url1;
     private String url2;
@@ -110,7 +112,7 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("物品详情");
         //ListView
-        commentListAdapter=new CommentListAdapter(this,commentList);
+        commentListAdapter=new CommentListAdapter(this,commentDetailsArrayList);
         lvGoodsDetailsComment.setAdapter(commentListAdapter);
         this.initData();
 
@@ -161,8 +163,8 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
                         }
                     }
                     //填充评论数据
-                    commentList.clear();
-                    commentList.addAll(goodsDetails.comments);
+                    commentDetailsArrayList.clear();
+                    commentDetailsArrayList.addAll(goodsDetails.commentDetailsList);
                     commentListAdapter.notifyDataSetChanged();
                 }
             }
@@ -191,9 +193,36 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
                 new ImageDialog(this,url3).show();
                 break;
             case R.id.btn_send_comment:
+                if (!etInputComment.getText().toString().isEmpty()){
+                    etInputComment.clearFocus();
+                    sendComment();
+                }else {
+                    ToastUtils.showMsg(getApplicationContext(),"输入为空！");
+                }
                 break;
         }
     }
+    //添加评论
+    private void sendComment(){
+        RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(CommentHelper.class).getAddCommentCall(0,GOODS_ID,UserUtils.getUserId(this),etInputComment.getText().toString()).enqueue(new Callback<Common>() {
+            @Override
+            public void onResponse(Call<Common> call, Response<Common> response) {
+                if (response.isSuccessful()){
+                    if (response.body().getStatus()==NetConstant.OK){
+                        ToastUtils.showMsg(getApplicationContext(),"发送成功");
+                        etInputComment.setText("");
+                        initData();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Common> call, Throwable t) {
+                ToastUtils.showMsg(getApplicationContext(),"失败");
+            }
+        });
+    }
+
+
     //显示发送信息Dialog
     private void showSendMsgDialog(){
         View view=View.inflate(this,R.layout.common_edittext,null);
@@ -228,11 +257,15 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
         }).show();
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.good_details_menu, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -250,6 +283,8 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
                         if (response.isSuccessful()){
                             if (response.body().getStatus()==NetConstant.OK){
                                 ToastUtils.showMsg(getApplicationContext(),"收藏成功");
+                            }else if (response.body().getStatus()==NetConstant.HAS_COLLECTED){
+                                ToastUtils.showMsg(getApplicationContext(),"收藏失败，您已经收藏过了");
                             }
                         }else {
                             ToastUtils.showMsg(getApplicationContext(),"收藏失败");
@@ -264,12 +299,16 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
         }
         return super.onOptionsItemSelected(item);
     }
+
+
     //返回键
     @Override
     public boolean onSupportNavigateUp() {
         this.finish();
         return super.onSupportNavigateUp();
     }
+
+
 
     @Override
     public void onRefresh() {

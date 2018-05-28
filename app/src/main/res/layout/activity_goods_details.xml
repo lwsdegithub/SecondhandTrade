@@ -118,7 +118,7 @@
                     android:nestedScrollingEnabled="false"
                     android:layout_below="@id/article_details"
                     android:id="@+id/lv_goods_details_comment"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="70dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 </com.wanghongyun.secondhandtrade.widget.MyListView>

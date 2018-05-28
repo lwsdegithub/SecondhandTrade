@@ -1,12 +1,14 @@
 package com.wanghongyun.secondhandtrade.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.app.ActionBar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.activity.AddNewGoodsActivity;
 import com.wanghongyun.secondhandtrade.activity.GoodDetailsActivity;
 import com.wanghongyun.secondhandtrade.activity.LoginActivity;
+import com.wanghongyun.secondhandtrade.activity.SearchActivity;
 import com.wanghongyun.secondhandtrade.adapter.GoodsListAdapter;
 import com.wanghongyun.secondhandtrade.base.BaseFragment;
 import com.wanghongyun.secondhandtrade.bean.Goods;
@@ -26,6 +29,7 @@ import com.wanghongyun.secondhandtrade.helper.gsonBeans.GoodsList;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
 import com.wanghongyun.secondhandtrade.helper.ImageFlipperLoader;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
+import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
 import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 import com.wanghongyun.secondhandtrade.utils.UserUtils;
 import com.wanghongyun.secondhandtrade.widget.MyListView;
@@ -35,6 +39,8 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +68,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     @BindView(R.id.tool_bar_home_page) Toolbar toolbar;
     @BindView(R.id.tv_mid_title) TextView tvMidTitle;
     @BindView(R.id.iv_back) ImageView ivBack;
+    @BindView(R.id.tv_right_title) ImageView tvRightTitle;
     @BindView(R.id.srl_home_page) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.lv_home_page) MyListView goodsListView;
     @BindView(R.id.banner_image_flipper) Banner bannerImageFlipper;
@@ -81,6 +88,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         //设置Title
         tvMidTitle.setText("首页");
+        tvRightTitle.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_search));
         //设置返回键不可见
         ivBack.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -103,10 +111,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     }
     //初始化数据
     private void initData(){
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(NetConstant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        final GoodsHelper goodsHelper=retrofit.create(GoodsHelper.class);
-        Call<GoodsList> goodsListCall=goodsHelper.getCall();
-        goodsListCall.enqueue(new Callback<GoodsList>() {
+        RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(GoodsHelper.class).getCall().enqueue(new Callback<GoodsList>() {
             @Override
             public void onResponse(Call<GoodsList> call, Response<GoodsList> response) {
                 if (response.isSuccessful()){
@@ -143,15 +148,25 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
     }
 
-    @OnClick({R.id.fab_home_page})
+    @OnClick({R.id.fab_home_page,R.id.tv_right_title})
     public void onClick(View view){
-        if (UserUtils.isLogin(getActivity())){
-            IntentUtils.startActivity(getActivity(), AddNewGoodsActivity.class);
-        }else {
-            ToastUtils.showMsg(getActivity(),"还没有登录哦");
-            IntentUtils.startActivity(getActivity(), LoginActivity.class);
+        switch (view.getId()){
+            case R.id.fab_home_page:
+                if (UserUtils.isLogin(getActivity())){
+                    IntentUtils.startActivity(getActivity(), AddNewGoodsActivity.class);
+                }else {
+                    ToastUtils.showMsg(getActivity(), "还没有登录哦");
+                    IntentUtils.startActivity(getActivity(), LoginActivity.class);
+                }
+                break;
+            case R.id.tv_right_title:
+                if (UserUtils.isLogin(getActivity())){
+                    IntentUtils.startActivity(getActivity(), SearchActivity.class);
+                }else {
+                    ToastUtils.showMsg(getActivity(), "还没有登录哦");
+                    IntentUtils.startActivity(getActivity(), LoginActivity.class);
+                }
         }
-
     }
 
 

@@ -11,8 +11,10 @@ import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.bean.Comment;
 import com.wanghongyun.secondhandtrade.bean.User;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.CommentDetails;
 import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.UserHelper;
 import com.wanghongyun.secondhandtrade.utils.DateUtils;
+import com.wanghongyun.secondhandtrade.utils.GlideUtils;
 import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
 
 import java.util.List;
@@ -29,22 +31,22 @@ import retrofit2.Retrofit;
 
 public class CommentListAdapter extends BaseAdapter {
     private Context context;
-    private List<Comment> commentList;
+    private List<CommentDetails> commentDetailsList;
     private ViewHolder viewHolder;
 
-    public CommentListAdapter(Context context, List<Comment> commentBeans) {
+    public CommentListAdapter(Context context, List<CommentDetails> commentBeans) {
         this.context = context;
-        this.commentList = commentBeans;
+        this.commentDetailsList = commentBeans;
     }
 
     @Override
     public int getCount() {
-        return commentList.size();
+        return commentDetailsList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return commentList.get(i);
+        return commentDetailsList.get(i);
     }
 
     @Override
@@ -66,26 +68,13 @@ public class CommentListAdapter extends BaseAdapter {
         }else {
             viewHolder= (ViewHolder) view.getTag();
         }
-        Comment commentBean=commentList.get(i);
-
-        //加载UserName，Glide加载头像,
-        Retrofit retrofit=RetrofitUtils.getRetrofit(NetConstant.BASE_URL);
-        UserHelper userHelper=retrofit.create(UserHelper.class);
-        Call<User> userCall=userHelper.getUserByIdCall(0,commentBean.getUser_id());
-        userCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User user=response.body();
-                Glide.with(context).load(NetConstant.BASE_HEAD_ICON_URL +user.getHeadIcon()).into(viewHolder.headImage);
-                viewHolder.userName.setText(user.getUserName());
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
-
-        viewHolder.content.setText(commentBean.getComment_content());
-        viewHolder.time.setText(DateUtils.dateFormat1(commentBean.getComment_time()));
+        if (!commentDetailsList.isEmpty()){
+            CommentDetails commentDetails=commentDetailsList.get(i);
+            GlideUtils.loadImage(context,NetConstant.BASE_HEAD_ICON_URL+commentDetails.getHeadIcon(),viewHolder.headImage);
+            viewHolder.userName.setText(commentDetails.getUserName());
+            viewHolder.content.setText(commentDetails.getContent());
+            viewHolder.time.setText(DateUtils.dateFormat1(commentDetails.getTime()));
+        }
         return view;
     }
     private static class ViewHolder{

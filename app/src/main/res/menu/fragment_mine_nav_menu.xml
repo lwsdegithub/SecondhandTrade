@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/g1">
-        <item android:id="@+id/collection" android:icon="@mipmap/collection" android:title="我的收藏" />
-        <item android:id="@+id/goods" android:icon="@mipmap/goods" android:title="我的发布"/>
-        <item android:id="@+id/demand" android:icon="@mipmap/demand" android:title="我的需求"/>
+        <item android:id="@+id/collection" android:icon="@mipmap/collection" android:title="个人收藏" />
+        <item android:id="@+id/goods" android:icon="@mipmap/goods" android:title="个人出售"/>
+        <item android:id="@+id/demand" android:icon="@mipmap/demand" android:title="个人求购"/>
     </group>
     <group android:id="@+id/g2">
         <item android:id="@+id/about" android:icon="@mipmap/about" android:title="关于"/>

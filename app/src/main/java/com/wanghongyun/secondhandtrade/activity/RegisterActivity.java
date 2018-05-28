@@ -57,6 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText etCode;
     @BindView(R.id.btn_register_confirm)
     Button btnRegisterConfirm;
+    @BindView(R.id.et_password_register_confirm)
+    TextInputEditText etPasswordRegisterConfirm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,7 +134,12 @@ public class RegisterActivity extends AppCompatActivity {
             case R.id.btn_register_confirm:
                 String phone1=etPhoneRegister.getText().toString();
                 if (StringUtils.isRightPhone(phone1)&&!etUserNameRegister.getText().toString().isEmpty()&&!etPasswordRegister.getText().toString().isEmpty()){
-                    submitCode("+86",phone1,etCode.getText().toString());
+                    if (etPasswordRegister.getText().toString().equals(etPasswordRegisterConfirm.getText().toString())){
+                        submitCode("+86",phone1,etCode.getText().toString());
+                    }else {
+                        ToastUtils.showMsg(getApplicationContext(),"两次输入密码不一致！");
+                    }
+
                     //测试用
                     //Message message=new Message();
                     //message.what=SUBMIT_CODE_SUCCESS;

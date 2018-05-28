@@ -78,7 +78,7 @@ public class DemandsFragment extends BaseFragment implements AdapterView.OnItemC
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         //设置Title
-        tvMidTitle.setText("需求");
+        tvMidTitle.setText("求购");
         //设置返回键不可见
         ivBack.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);

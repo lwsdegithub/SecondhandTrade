@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
         mineFragment=new MineFragment();
         tabViewChildList=new ArrayList<>();
         tabViewChildList.add(new TabViewChild(R.drawable.ic_home_page_sel,R.drawable.ic_home_page_unsel,"首页",homePageFragment));
-        tabViewChildList.add(new TabViewChild(R.drawable.ic_demands_sel,R.drawable.ic_demands_unsel,"需求",demandsFragment));
+        tabViewChildList.add(new TabViewChild(R.drawable.ic_demands_sel,R.drawable.ic_demands_unsel,"求购",demandsFragment));
         tabViewChildList.add(new TabViewChild(R.drawable.ic_message_sel,R.drawable.ic_message_unsel,"消息",messageFragment));
         tabViewChildList.add(new TabViewChild(R.drawable.ic_mine_sel,R.drawable.ic_mine_unsel,"我的",mineFragment));
         mainTabView.setTabViewChild(tabViewChildList,getSupportFragmentManager());

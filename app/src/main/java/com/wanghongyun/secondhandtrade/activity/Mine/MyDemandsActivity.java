@@ -45,7 +45,7 @@ public class MyDemandsActivity extends AppCompatActivity {
     private void initView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("我的需求");
+        actionBar.setTitle("个人求购");
         myDemandAdapter=new MyDemandAdapter(demandList,this);
         lvMyDemand.setAdapter(myDemandAdapter);
         initData();
