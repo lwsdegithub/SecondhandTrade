@@ -27,4 +27,7 @@ public interface DemandHelper {
 
     @GET("UserSevlet")
     Call<List<Demand>> getDemandListByUserId(@Query("TYPE") int type,@Query("USER_ID") int userId);
+
+    @GET("DemandSevlet")
+    Call<Common> getDeleteDemandCall(@Query("TYPE") int type,@Query("DEMAND_ID") int demandId);
 }

@@ -20,6 +20,7 @@ public class SharedPreferencesUtils {
     public static final String USER_NAME="USER_NAME";
     public static final String HEAD_ICON="HEAD_ICON";
     public static final String USER_ID="USER_ID";
+    public static final String PASSWORD="PASSWORD";
 
     public static void putData(Context context,String fileName, String key, Object object)
     {

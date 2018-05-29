@@ -21,5 +21,8 @@ public class BaseApplication extends Application {
         if (UserUtils.isLogin(this)){
             MobSDK.setUser(UserUtils.getUserId(this)+"",UserUtils.getUserName(this),null,null);
         }
+        if (UserUtils.isLogin(getApplicationContext())){
+            UserUtils.updateSpData(getApplicationContext());
+        }
     }
 }

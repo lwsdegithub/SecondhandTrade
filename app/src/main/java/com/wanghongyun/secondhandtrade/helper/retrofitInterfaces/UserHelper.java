@@ -4,13 +4,16 @@ import com.wanghongyun.secondhandtrade.bean.User;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Mine.MyGoods;
 
+import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
@@ -41,4 +44,8 @@ public interface UserHelper {
 
     @GET("UserSevlet")
     Call<Common> getUpdateUserCall(@QueryMap Map<String,String> map);
+
+    @POST("UpdateUserHeadIconServlet")
+    @Multipart
+    Call<Common> getUpdateHeadIconCall(@Part List<MultipartBody.Part> parts);
 }

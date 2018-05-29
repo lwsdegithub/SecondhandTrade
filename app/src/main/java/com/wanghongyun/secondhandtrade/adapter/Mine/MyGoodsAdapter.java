@@ -10,16 +10,25 @@ import android.widget.TextView;
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.bean.Collection;
 import com.wanghongyun.secondhandtrade.bean.Goods;
+import com.wanghongyun.secondhandtrade.constant.NetConstant;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.Mine.MyCollection;
+import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.GoodsHelper;
+import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
+import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by 李维升 on 2018/5/23.
  */
 
-public class MyGoodsAdapter extends BaseAdapter implements View.OnClickListener {
+public class MyGoodsAdapter extends BaseAdapter  {
     private ArrayList<MyCollection.SimpleGoods> goodsList;
     private Context context;
 
@@ -45,7 +54,7 @@ public class MyGoodsAdapter extends BaseAdapter implements View.OnClickListener 
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         MyCollectionAdapter.ViewHolder viewHolder=new MyCollectionAdapter.ViewHolder();
         if (view==null){
             view=View.inflate(context, R.layout.item_list_common,null);
@@ -58,15 +67,31 @@ public class MyGoodsAdapter extends BaseAdapter implements View.OnClickListener 
         if (!goodsList.isEmpty()){
             viewHolder.textView.setText(goodsList.get(i).getGoods_name());
             viewHolder.button.setText("删除");
-            viewHolder.button.setOnClickListener(this);
+            viewHolder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(GoodsHelper.class).getDeleteGoodsCall(0,goodsList.get(i).getGoods_id()).enqueue(new Callback<Common>() {
+                        @Override
+                        public void onResponse(Call<Common> call, Response<Common> response) {
+                            if (response.isSuccessful()){
+                                if (response.body().getStatus()==NetConstant.OK){
+                                    ToastUtils.showMsg(context,"刪除成功");
+                                    goodsList.remove(i);
+                                    MyGoodsAdapter.this.notifyDataSetChanged();
+                                }
+                            }else {
+                                ToastUtils.showMsg(context,"刪除失败");
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<Common> call, Throwable t) {
+                            ToastUtils.showMsg(context,"删除失败");
+                        }
+                    });
+                }
+            });
         }
-
         return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     static class ViewHolder{

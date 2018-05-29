@@ -30,6 +30,7 @@
         <activity android:name=".activity.Mine.MyDemandsActivity" android:theme="@style/Theme.Design.Light"/>
         <activity android:name=".activity.AboutActivity" android:theme="@style/Theme.Design.Light"/>
         <activity android:name=".activity.SearchActivity" android:theme="@style/Theme.Design.Light"/>
+        <activity android:name=".activity.UpdatePasswordActivity" android:theme="@style/Theme.Design.Light"/>
 
     </application>
     <!-- if you want to load images from the internet -->

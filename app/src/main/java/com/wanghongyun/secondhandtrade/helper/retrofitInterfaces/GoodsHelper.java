@@ -37,4 +37,7 @@ public interface GoodsHelper {
     @GET("SearchGoodsServlet")
     Call<List<Goods>> getSearchCall(@Query("KEY") String key);
 
+    @GET("GoodsServlet")
+    Call<Common> getDeleteGoodsCall(@Query("TYPE") int type,@Query("GOODS_ID") int id);
+
 }

@@ -24,6 +24,12 @@ public class UserUtils {
     public static String getUserName(Context context){
         return (String) SharedPreferencesUtils.getData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,"头号玩家");
     }
+    public static String getUserPassword(Context context){
+        return (String) SharedPreferencesUtils.getData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.PASSWORD,"");
+    }
+    public static String getUserHeadIcon(Context context){
+        return (String) SharedPreferencesUtils.getData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,"");
+    }
     //从服务器更新存储在SharedPreferences的个人数据
     public static void updateSpData(final Context context){
         RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(UserHelper.class).getUserByIdCall(0,getUserId(context)).enqueue(new Callback<User>() {
@@ -33,6 +39,7 @@ public class UserUtils {
                     User user=response.body();
                     SharedPreferencesUtils.putData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,user.getUserName());
                     SharedPreferencesUtils.putData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,user.getHeadIcon());
+                    SharedPreferencesUtils.putData(context,SharedPreferencesUtils.USER,SharedPreferencesUtils.PASSWORD,user.getPassword());
                 }
             }
             @Override

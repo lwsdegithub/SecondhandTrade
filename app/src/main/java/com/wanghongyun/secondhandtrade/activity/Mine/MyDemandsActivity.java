@@ -63,17 +63,14 @@ public class MyDemandsActivity extends AppCompatActivity {
                     }
                 }else {
                     ToastUtils.showMsg(getApplicationContext(),"请求失败");
-
                 }
             }
-
             @Override
             public void onFailure(Call<List<Demand>> call, Throwable t) {
                 ToastUtils.showMsg(getApplicationContext(),"请求失败");
             }
         });
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         this.finish();

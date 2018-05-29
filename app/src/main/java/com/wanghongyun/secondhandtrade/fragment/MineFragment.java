@@ -94,8 +94,8 @@ public class MineFragment extends BaseFragment implements NavigationView.OnNavig
         super.onResume();
         if (UserUtils.isLogin(getContext())){
             UserUtils.updateSpData(getContext());
-            GlideUtils.loadImage(getContext(),NetConstant.BASE_HEAD_ICON_URL+SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,"000"),headIcon);
-            userName.setText((String)SharedPreferencesUtils.getData(getContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,"未登录"));
+            GlideUtils.loadImage(getContext(),NetConstant.BASE_HEAD_ICON_URL+UserUtils.getUserHeadIcon(getContext()),headIcon);
+            userName.setText(UserUtils.getUserName(getContext()));
         }else {
             Glide.with(getContext()).load(R.mipmap.ic_launcher).into(headIcon);
             userName.setText("未登录");

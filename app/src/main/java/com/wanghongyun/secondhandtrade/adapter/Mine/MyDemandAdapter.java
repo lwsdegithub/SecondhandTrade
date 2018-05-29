@@ -11,14 +11,23 @@ import android.widget.TextView;
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.bean.Collection;
 import com.wanghongyun.secondhandtrade.bean.Demand;
+import com.wanghongyun.secondhandtrade.constant.NetConstant;
+import com.wanghongyun.secondhandtrade.helper.gsonBeans.Common;
+import com.wanghongyun.secondhandtrade.helper.retrofitInterfaces.DemandHelper;
+import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
+import com.wanghongyun.secondhandtrade.utils.ToastUtils;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by 李维升 on 2018/5/23.
  */
 
-public class MyDemandAdapter extends BaseAdapter implements View.OnClickListener {
+public class MyDemandAdapter extends BaseAdapter  {
     private List<Demand> demandList;
     private Context context;
 
@@ -44,7 +53,7 @@ public class MyDemandAdapter extends BaseAdapter implements View.OnClickListener
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         MyCollectionAdapter.ViewHolder viewHolder=new MyCollectionAdapter.ViewHolder();
         if (view==null){
             view=View.inflate(context, R.layout.item_list_common,null);
@@ -56,15 +65,34 @@ public class MyDemandAdapter extends BaseAdapter implements View.OnClickListener
         }
         if (!demandList.isEmpty()){
             viewHolder.textView.setText(demandList.get(i).getDemand_content());
-            viewHolder.button.setOnClickListener(this);
+            viewHolder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(DemandHelper.class).getDeleteDemandCall(1,demandList.get(i).getDemand_id()).enqueue(new Callback<Common>() {
+                        @Override
+                        public void onResponse(Call<Common> call, Response<Common> response) {
+                            if (response.isSuccessful()){
+                                if (response.body().getStatus()==NetConstant.OK){
+                                    ToastUtils.showMsg(context,"刪除成功");
+                                    demandList.remove(i);
+                                    MyDemandAdapter.this.notifyDataSetChanged();
+                                }
+                            }else {
+                                ToastUtils.showMsg(context,"刪除失败");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Common> call, Throwable t) {
+                            ToastUtils.showMsg(context,"删除失败");
+                        }
+                    });
+                }
+            });
         }
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 
     static class ViewHolder{
         TextView textView;

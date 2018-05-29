@@ -81,15 +81,15 @@ public class MyCollectionAdapter extends BaseAdapter  {
                                     simpleGoodsList.remove(i);
                                     MyCollectionAdapter.this.notifyDataSetChanged();
                                 }else if (response.body().getStatus()==NetConstant.ERROR){
-                                    ToastUtils.showMsg(context,"刪除失敗");
+                                    ToastUtils.showMsg(context,"刪除失败");
                                 }
                             }else {
-                                ToastUtils.showMsg(context,"刪除失敗");
+                                ToastUtils.showMsg(context,"刪除失败");
                             }
                         }
                         @Override
                         public void onFailure(Call<Common> call, Throwable t) {
-                            ToastUtils.showMsg(context,"刪除失敗");
+                            ToastUtils.showMsg(context,"刪除失败");
                         }
                     });
                 }
