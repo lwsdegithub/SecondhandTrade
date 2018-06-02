@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.mob.MobSDK;
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.bean.User;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
@@ -21,6 +22,7 @@ import com.wanghongyun.secondhandtrade.utils.RetrofitUtils;
 import com.wanghongyun.secondhandtrade.utils.SharedPreferencesUtils;
 import com.wanghongyun.secondhandtrade.utils.StringUtils;
 import com.wanghongyun.secondhandtrade.utils.ToastUtils;
+import com.wanghongyun.secondhandtrade.utils.UserUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                                         SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,user.getUserName());
                                         SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.HEAD_ICON,user.getHeadIcon());
                                         SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_ID,user.getId());
+                                        //mob注册
+                                        MobSDK.setUser(UserUtils.getUserId(getApplicationContext())+"",UserUtils.getUserName(getApplicationContext()),null,null);
                                     }
                                     @Override
                                     public void onFailure(Call<User> call, Throwable t) {

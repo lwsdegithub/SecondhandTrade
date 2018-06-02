@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mob.imsdk.IChatManager;
 import com.mob.imsdk.MobIM;
 import com.mob.imsdk.MobIMCallback;
 import com.mob.imsdk.model.IMMessage;
@@ -231,21 +232,18 @@ public class GoodDetailsActivity extends AppCompatActivity implements SwipeRefre
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String msg=editText.getText().toString();
-                if (!msg.isEmpty()){
-                    IMMessage imMessage=new IMMessage();
-                    IMUser imUser = new IMUser();
-                    imUser.setId(USER_ID+"");
-                    imMessage.setBody(msg);
-                    imMessage.setFromUserInfo(imUser);
-                    MobIM.getChatManager().sendMessage(imMessage, new MobIMCallback<Void>() {
+                if(!msg.isEmpty()){
+                    IChatManager iChatManager=MobIM.getChatManager();
+                    IMMessage imMessage=iChatManager.createTextMessage(USER_ID+"",msg,IMMessage.TYPE_USER);
+                    iChatManager.sendMessage(imMessage, new MobIMCallback<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             ToastUtils.showMsg(getApplicationContext(),"发送成功");
                         }
+
                         @Override
                         public void onError(int i, String s) {
-                            Log.e("ERROR",i+"");
-                            ToastUtils.showMsg(getApplicationContext(),"发送失败");
+                            ToastUtils.showMsg(getApplicationContext(),s);
                         }
                     });
                 }
