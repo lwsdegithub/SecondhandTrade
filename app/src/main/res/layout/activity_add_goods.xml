@@ -36,19 +36,19 @@
             <ImageView
                 android:visibility="gone"
                 android:id="@+id/iv_1"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:visibility="gone"
                 android:id="@+id/iv_2"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:visibility="gone"
                 android:id="@+id/iv_3"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

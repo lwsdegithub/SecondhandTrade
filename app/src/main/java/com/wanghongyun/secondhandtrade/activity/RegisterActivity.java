@@ -135,15 +135,16 @@ public class RegisterActivity extends AppCompatActivity {
                 String phone1=etPhoneRegister.getText().toString();
                 if (StringUtils.isRightPhone(phone1)&&!etUserNameRegister.getText().toString().isEmpty()&&!etPasswordRegister.getText().toString().isEmpty()){
                     if (etPasswordRegister.getText().toString().equals(etPasswordRegisterConfirm.getText().toString())){
-                        submitCode("+86",phone1,etCode.getText().toString());
+                        //测试用
+                        Message message=new Message();
+                        message.what=SUBMIT_CODE_SUCCESS;
+                        handler.sendMessage(message);
+                        //submitCode("+86",phone1,etCode.getText().toString());
                     }else {
                         ToastUtils.showMsg(getApplicationContext(),"两次输入密码不一致！");
                     }
 
-                    //测试用
-                    //Message message=new Message();
-                    //message.what=SUBMIT_CODE_SUCCESS;
-                    //handler.sendMessage(message);
+
                 }else {
                     ToastUtils.showMsg(getApplicationContext(),"输入有误，请重新输入！");
                 }
