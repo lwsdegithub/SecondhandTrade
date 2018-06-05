@@ -253,15 +253,17 @@ public class MyDetailsActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(!editText.getText().toString().isEmpty()){
                     Map<String,String> queryMap=new HashMap<>();
+                    final String what=editText.getText().toString();
                     queryMap.put("TYPE",5+"");
                     queryMap.put("USER_ID",UserUtils.getUserId(getApplicationContext())+"");
-                    queryMap.put(updateWhat,editText.getText().toString());
+                    queryMap.put(updateWhat,what);
                     RetrofitUtils.getRetrofit(NetConstant.BASE_URL).create(UserHelper.class).getUpdateUserCall(queryMap).enqueue(new Callback<Common>() {
                         @Override
                         public void onResponse(Call<Common> call, Response<Common> response) {
                             if (response.isSuccessful()){
                                 if (response.body().getStatus()==NetConstant.OK){
                                     ToastUtils.showMsg(getApplicationContext(),"修改成功");
+                                    SharedPreferencesUtils.putData(getApplicationContext(),SharedPreferencesUtils.USER,SharedPreferencesUtils.USER_NAME,what);
                                     initData();
                                 }
                             }else {

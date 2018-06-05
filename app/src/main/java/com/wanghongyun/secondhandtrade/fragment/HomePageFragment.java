@@ -40,6 +40,7 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -63,6 +64,8 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     private ArrayList<String> imageLists=new ArrayList<>();
     private ArrayList<Goods> goodsList=new ArrayList<>();
     private GoodsListAdapter adapter;
+    //轮播图片数据源
+    private List<HashMap<String,String>> imageFipperUrlList=new ArrayList<>();
 
     //控件绑定
     @BindView(R.id.tool_bar_home_page) Toolbar toolbar;
@@ -91,18 +94,10 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         tvRightTitle.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_search));
         //设置返回键不可见
         ivBack.setVisibility(View.GONE);
+
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        //配置BannerImageFlipper
-        imageLists.add("http://e.hiphotos.baidu.com/image/pic/item/5d6034a85edf8db1effe3ec40a23dd54574e74b9.jpg");
-        imageLists.add("http://a.hiphotos.baidu.com/image/pic/item/d439b6003af33a8709c74f2bc55c10385343b55d.jpg");
-        imageLists.add("http://e.hiphotos.baidu.com/image/pic/item/cb8065380cd7912333d46579af345982b2b78083.jpg");
-        bannerImageFlipper.setImages(imageLists);
-        bannerImageFlipper.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        bannerImageFlipper.setImageLoader(new ImageFlipperLoader());
-        bannerImageFlipper.setBannerAnimation(Transformer.DepthPage);
-        bannerImageFlipper.setIndicatorGravity(BannerConfig.CENTER);
-        bannerImageFlipper.start();
+        bannerImageFlipper.setOnBannerListener(this);
         //配置ListView
         adapter=new GoodsListAdapter(getActivity(),goodsList);
         goodsListView.setOnItemClickListener(this);
@@ -117,10 +112,37 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                 if (response.isSuccessful()){
                     GoodsList temp =  response.body();
                     goodsList.clear();
+                    imageFipperUrlList.clear();
+                    imageLists.clear();
+
                     if (!temp.goodsList.isEmpty()){
+                        //添加ImageFlipper
+                        int i=0;
+                        for (Goods goods:temp.goodsList){
+                            HashMap<String,String> hashMap=new HashMap<>();
+                            hashMap.put("GOODS_ID",goods.getGoods_id()+"");
+                            hashMap.put("URL",NetConstant.BASE_GOODS_PHOTOS_URL+goods.getGoods_photo().split(",")[0]);
+                            imageFipperUrlList.add(hashMap);
+                            i++;
+                            //最多加载4个
+                            if (i==4){
+                                break;
+                            }
+                        }
+                        for (HashMap<String,String> map:imageFipperUrlList){
+                            imageLists.add(map.get("URL"));
+                        }
+                        //配置BannerImageFlipper
+                        bannerImageFlipper.setImages(imageLists);
+                        bannerImageFlipper.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+                        bannerImageFlipper.setImageLoader(new ImageFlipperLoader());
+                        bannerImageFlipper.setBannerAnimation(Transformer.DepthPage);
+                        bannerImageFlipper.setIndicatorGravity(BannerConfig.CENTER);
+                        bannerImageFlipper.start();
+                        //添加List
                         goodsList.addAll(temp.goodsList);
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
                 }else {
                     ToastUtils.showMsg(getContext(),"服务器出错！！！");
                 }
@@ -145,7 +167,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     //在这里进行图片轮播组件点击跳转操作
     @Override
     public void OnBannerClick(int position) {
-
+        IntentUtils.startActivityWithInt(getActivity(),GoodDetailsActivity.class,"GOODS_ID", Integer.parseInt(imageFipperUrlList.get(position).get("GOODS_ID")));
     }
 
     @OnClick({R.id.fab_home_page,R.id.tv_right_title})

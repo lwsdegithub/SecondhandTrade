@@ -132,11 +132,15 @@ public class AddNewGoodsActivity extends AppCompatActivity {
             String goodsName=tvAddGoodsName.getText().toString();
             String description=tvAddGoodsDescription.getText().toString();
             String price=tvAddGoodsPrice.getText().toString();
-            if (goodsName.isEmpty()||description.isEmpty()||price.isEmpty()){
-                ToastUtils.showMsg(this,"信息有问题，请检查");
+            if (!uris.isEmpty()){
+                if (goodsName.isEmpty()||description.isEmpty()||price.isEmpty()){
+                    ToastUtils.showMsg(this,"信息有问题，请检查");
+                }else {
+                    ToastUtils.showMsg(getApplicationContext(),"正在上传，请稍等");
+                    upload(goodsName,description,price);
+                }
             }else {
-                ToastUtils.showMsg(getApplicationContext(),"正在上传，请稍等");
-                upload(goodsName,description,price);
+                ToastUtils.showMsg(getApplicationContext(),"请至少选择一张图片！");
             }
         }else if (view.getId()==R.id.btn_add_goods_photo){
             selectPhotos();

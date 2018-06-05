@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.wanghongyun.secondhandtrade.constant.NetConstant;
 import com.youth.banner.loader.ImageLoader;
 
 /**
