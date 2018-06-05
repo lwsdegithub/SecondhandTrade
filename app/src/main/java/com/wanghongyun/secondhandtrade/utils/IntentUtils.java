@@ -2,6 +2,7 @@ package com.wanghongyun.secondhandtrade.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 /**
@@ -25,6 +26,19 @@ public class IntentUtils {
         bundle.putString(key,value);
         Intent intent=new Intent(context,clazz);
         intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+    public static void Call(Context context,String phone){
+        Intent intent=new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:"+phone));
+        context.startActivity(intent);
+    }
+    public static void SendMsg(Context context,String phone){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:"+phone));
+        intent.putExtra("sms_body","您好！我想向您咨询一下贰货商城的相关信息！");
         context.startActivity(intent);
     }
 }

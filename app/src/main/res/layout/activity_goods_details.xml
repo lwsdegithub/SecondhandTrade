@@ -56,7 +56,7 @@
                         android:id="@+id/btn_goods_details_send_msg"
                         android:layout_alignParentRight="true"
                         android:textSize="15sp"
-                        android:text="私聊"
+                        android:text="联系"
                         android:background="@drawable/bg_common_btn"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"

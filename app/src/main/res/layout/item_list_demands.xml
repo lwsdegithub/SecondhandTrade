@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/bg_common_btn"
-            android:text="私聊"
+            android:text="联系"
             android:layout_width="wrap_content"
             android:layout_height="35dp" />
     </RelativeLayout>

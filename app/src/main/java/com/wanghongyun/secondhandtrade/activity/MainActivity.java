@@ -14,7 +14,6 @@ import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.base.BaseActivity;
 import com.wanghongyun.secondhandtrade.fragment.DemandsFragment;
 import com.wanghongyun.secondhandtrade.fragment.HomePageFragment;
-import com.wanghongyun.secondhandtrade.fragment.MessageFragment;
 import com.wanghongyun.secondhandtrade.fragment.MineFragment;
 
 import java.util.ArrayList;
@@ -28,7 +27,6 @@ public class MainActivity extends BaseActivity {
     private HomePageFragment homePageFragment;
     private DemandsFragment demandsFragment;
     private MineFragment mineFragment;
-    private MessageFragment messageFragment;
 
     @BindView(R.id.main_tab_view) TabView mainTabView;
 
@@ -42,12 +40,11 @@ public class MainActivity extends BaseActivity {
     private void initView(){
         homePageFragment=new HomePageFragment();
         demandsFragment=new DemandsFragment();
-        messageFragment=new MessageFragment();
         mineFragment=new MineFragment();
         tabViewChildList=new ArrayList<>();
         tabViewChildList.add(new TabViewChild(R.drawable.ic_home_page_sel,R.drawable.ic_home_page_unsel,"首页",homePageFragment));
         tabViewChildList.add(new TabViewChild(R.drawable.ic_demands_sel,R.drawable.ic_demands_unsel,"求购",demandsFragment));
-        tabViewChildList.add(new TabViewChild(R.drawable.ic_message_sel,R.drawable.ic_message_unsel,"消息",messageFragment));
+        //tabViewChildList.add(new TabViewChild(R.drawable.ic_message_sel,R.drawable.ic_message_unsel,"消息",messageFragment));
         tabViewChildList.add(new TabViewChild(R.drawable.ic_mine_sel,R.drawable.ic_mine_unsel,"我的",mineFragment));
         mainTabView.setTabViewChild(tabViewChildList,getSupportFragmentManager());
     }

@@ -18,9 +18,6 @@ public class BaseApplication extends Application {
         this.initData();
     }
     private void initData(){
-        if (UserUtils.isLogin(this)){
-            MobSDK.setUser(UserUtils.getUserId(this)+"",UserUtils.getUserName(this),null,null);
-        }
         if (UserUtils.isLogin(getApplicationContext())){
             UserUtils.updateSpData(getApplicationContext());
         }

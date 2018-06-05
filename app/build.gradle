@@ -54,5 +54,4 @@ MobSDK {
     SMSSDK {
         gui false
     }
-    MobIM {}
 }
