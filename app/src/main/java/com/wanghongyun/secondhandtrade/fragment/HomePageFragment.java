@@ -114,7 +114,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                     goodsList.clear();
                     imageFipperUrlList.clear();
                     imageLists.clear();
-
+                    adapter.notifyDataSetChanged();
                     if (!temp.goodsList.isEmpty()){
                         //添加ImageFlipper
                         int i=0;
