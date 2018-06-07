@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.wanghongyun.secondhandtrade.R;
 import com.wanghongyun.secondhandtrade.activity.GoodDetailsActivity;
+import com.wanghongyun.secondhandtrade.activity.LoginActivity;
 import com.wanghongyun.secondhandtrade.constant.NetConstant;
 import com.wanghongyun.secondhandtrade.helper.gsonBeans.DemandList;
 import com.wanghongyun.secondhandtrade.utils.DateUtils;
 import com.wanghongyun.secondhandtrade.utils.GlideUtils;
 import com.wanghongyun.secondhandtrade.utils.IntentUtils;
 import com.wanghongyun.secondhandtrade.utils.ToastUtils;
+import com.wanghongyun.secondhandtrade.utils.UserUtils;
 
 import java.util.List;
 
@@ -74,17 +76,23 @@ public class DemandListAdapter extends BaseAdapter {
         viewHolder.sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(context).setTitle("联系求购者").setMessage("选择联系方式").setPositiveButton("电话", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        IntentUtils.Call(context,demandDetails.getPhone());
-                    }
-                }).setNegativeButton("短信", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        IntentUtils.SendMsg(context,demandDetails.getPhone());
-                    }
-                }).show();
+                if (UserUtils.isLogin(context)){
+                    new AlertDialog.Builder(context).setTitle("联系求购者").setMessage("选择联系方式").setPositiveButton("电话", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            IntentUtils.Call(context,demandDetails.getPhone());
+                        }
+                    }).setNegativeButton("短信", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            IntentUtils.SendMsg(context,demandDetails.getPhone());
+                        }
+                    }).show();
+                }else {
+                    ToastUtils.showMsg(context,"还没有登陆哦");
+                    IntentUtils.startActivity(context, LoginActivity.class);
+                }
+
             }
         });
         return view;
