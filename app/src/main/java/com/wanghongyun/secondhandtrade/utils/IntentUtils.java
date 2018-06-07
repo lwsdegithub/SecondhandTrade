@@ -30,7 +30,7 @@ public class IntentUtils {
     }
     public static void Call(Context context,String phone){
         Intent intent=new Intent();
-        intent.setAction(Intent.ACTION_CALL);
+        intent.setAction(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:"+phone));
         context.startActivity(intent);
     }
